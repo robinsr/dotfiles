@@ -1,14 +1,9 @@
 'editor':
-  'fontSize': 14
   'fontFamily': 'Menlo'
   'preferredLineLength': 100
-  'showInvisibles': true
   'showIndentGuide': true
+  'fontSize': 11
 'core':
-  'themes': [
-    'atom-dark-ui'
-    'atom-dark-syntax'
-  ]
   'disabledPackages': [
     'autocomplete'
   ]
