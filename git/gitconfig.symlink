@@ -2,7 +2,7 @@
         protocol = https
 [user]
         name = Ryan Robinson
-        email = myan.robinson@formidablelabs.com
+	email = ryan.b.robinson@gmail.com
 [credential]
         helper = osxkeychain
 [alias]
