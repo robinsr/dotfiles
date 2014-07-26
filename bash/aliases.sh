@@ -23,7 +23,7 @@ alias ll="ls -alF"
 alias lsd='ll | grep "^d"'
 
 # Simple webserver for the directory contents running at localhost:8000
-alias server='python -m SimpleHTTPServer'
+alias server='python -m SimpleHTTPServer 8081'
 
 # ----------------------------------------------------------------------
 # Safeguards

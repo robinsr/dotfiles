@@ -29,3 +29,9 @@ fi
 
 # Setup SSH Agent
 # source ~/.ssh/ssh-agent-setup.sh
+
+# NVM
+source $(brew --prefix nvm)/nvm.sh
+
+PATH="${PATH}:./node_modules/.bin"
+export PATH
