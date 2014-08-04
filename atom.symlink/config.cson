@@ -3,9 +3,11 @@
   'preferredLineLength': 100
   'showIndentGuide': true
   'fontSize': 11
+  'showInvisibles': true
 'core':
-  'disabledPackages': [
-    'autocomplete'
+  'themes': [
+    'atom-dark-ui'
+    'monokai'
   ]
 'exception-reporting':
   'userId': 'a26bd123-9c44-e41b-5cfa-0194d7071c58'
