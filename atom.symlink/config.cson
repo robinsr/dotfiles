@@ -4,6 +4,7 @@
   'showIndentGuide': true
   'fontSize': 11
   'showInvisibles': true
+  'fontSize': 12
 'core':
   'themes': [
     'atom-dark-ui'

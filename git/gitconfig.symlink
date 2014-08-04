@@ -2,7 +2,7 @@
         protocol = https
 [user]
         name = Ryan Robinson
-	email = ryan.b.robinson@gmail.com
+        email = ryan.b.robinson@gmail.com
 [credential]
         helper = osxkeychain
 [alias]
@@ -26,7 +26,7 @@
 
         # Logs
         plog  = log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-        logme = log --author="Ryan"
+        logme = log --author="Robinson"
         blog  = log --graph --decorate --pretty=oneline --abbrev-commit
 
         # Pull/Push
