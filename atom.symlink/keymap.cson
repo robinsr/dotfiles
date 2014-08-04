@@ -1,2 +1,0 @@
-'.workspace .editor:not(.mini)':
-  'alt-shift-down': 'editor:add-selection-below'
