@@ -33,5 +33,10 @@ fi
 # NVM
 source $(brew --prefix nvm)/nvm.sh
 
-PATH="${PATH}:./node_modules/.bin"
-export PATH
+export PATH="${PATH}:./node_modules/.bin:/Users/ryaaan/.toolbox/bin"
+
+. "$HOME/.cargo/env"
+
+# iTerm Shell Integration
+
+source ~/.iterm2_shell_integration.bash

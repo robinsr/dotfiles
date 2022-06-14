@@ -1,8 +1,8 @@
 [hub]
         protocol = https
 [user]
-        name = Ryan Robinson
-        email = ryan.b.robinson@gmail.com
+	name = ryaaan
+	email = ryaaan@amazon.com
 [credential]
         helper = osxkeychain
 [alias]
@@ -10,7 +10,7 @@
         wtf  = !$DOTFILES/bin/git-wtf
 
         # Delete all local branches that have been merged into HEAD
-        dall = branch -d `git branch --merged | grep -v '^*' | grep -v 'master' | tr -d '\n'`
+        dall = branch -d `git branch --merged | grep -v '^*' | grep -v 'mainline' | tr -d '\n'`
 
         # shortcuts
         co = checkout
@@ -26,13 +26,13 @@
 
         # Logs
         plog  = log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-        logme = log --author="Robinson"
+        logme = log --author="ryaaan"
         blog  = log --graph --decorate --pretty=oneline --abbrev-commit
 
         # Pull/Push
-        pm  = pull origin master
+        pm  = pull origin mainline
         pd  = pull origin develop
-        pum = push origin master
+        pum = push origin mainline
         pud = push origin develop
 
         # Safeguards
@@ -55,13 +55,13 @@
         # Include summaries of merged commits in newly created merge commit messages
         log = true
 
-        # Use `origin` as the default remote on the `master` branch in all cases
-[branch "master"]
+        # Use `origin` as the default remote on the `mainline` branch in all cases
+[branch "mainline"]
         remote = origin
-        merge = refs/heads/master
+        merge = refs/heads/mainline
 [core]
         excludesfile = ~/.gitignore
-        editor = vim
+	editor = subl --wait
         ignorecase = false
 [apply]
         whitespace = nowarn
@@ -77,3 +77,5 @@
         #
         # Setting to git 2.0 default to surpress warning message
         default = simple
+[init]
+	defaultBranch = mainline
