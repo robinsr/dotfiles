@@ -1,2 +1,2 @@
-[[ -s ~/.bashrc ]] && source ~/.bashrc
-. "$HOME/.cargo/env"
+# Nothing here please
+source ~/.bashrc

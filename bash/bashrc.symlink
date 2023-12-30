@@ -31,12 +31,33 @@ fi
 # source ~/.ssh/ssh-agent-setup.sh
 
 # NVM
-source $(brew --prefix nvm)/nvm.sh
+if [[ -a $(brew --prefix nvm)/nvm.sh ]]
+then
+  source $(brew --prefix nvm)/nvm.sh
+fi
 
-export PATH="${PATH}:./node_modules/.bin:/Users/ryaaan/.toolbox/bin"
 
 . "$HOME/.cargo/env"
 
 # iTerm Shell Integration
+if [[ -a ~/.iterm2_shell_integration.bash ]]
+then
+  source ~/.iterm2_shell_integration.bash
+fi
 
-source ~/.iterm2_shell_integration.bash
+# Text editors
+# if [[ -a "/Applications/Visual Studio Code.app" ]]
+# then
+#   export PATH="$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin"
+# fi
+
+# if [[ -a ~/.spicetify ]]
+# then
+#   export PATH=$PATH:"$HOME/.spicetify"
+# fi
+
+
+export PATH="$HOME/.npm/bin:$PATH"
+export PATH="./node_modules/.bin:$PATH"
+export PATH="/Users/ryan/.deno/bin:$PATH"
+export PATH="/usr/local/opt/curl/bin:$PATH"

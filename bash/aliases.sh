@@ -22,9 +22,19 @@ alias ll="ls -alF"
 # List only directories
 alias lsd='ll | grep "^d"'
 
-# Simple webserver for the directory contents running at localhost:8000
-alias server='python -m SimpleHTTPServer 8081'
+# Simple webserver for the directory contents running at localhost:8080
+export PY_TEST_PORT=8080
+alias pyserver3='python3 -m http.server $PY_TEST_PORT'
+alias pyserver2='python -m SimpleHTTPServer $PY_TEST_PORT'
 
+function server() {
+  if [[ "$(python3 -V)" =~ "Python 3" ]]
+  then
+    pyserver3
+  else
+    pyserver2
+  fi
+}
 # ----------------------------------------------------------------------
 # Safeguards
 # ----------------------------------------------------------------------

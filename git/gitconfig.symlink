@@ -1,8 +1,8 @@
 [hub]
         protocol = https
 [user]
-	name = ryaaan
-	email = ryaaan@amazon.com
+	name = robinsr
+	email = ryan.b.robinson@gmail.com
 [credential]
         helper = osxkeychain
 [alias]
@@ -63,6 +63,7 @@
         excludesfile = ~/.gitignore
 	editor = subl --wait
         ignorecase = false
+	quotepath = off
 [apply]
         whitespace = nowarn
 [mergetool]
@@ -79,3 +80,8 @@
         default = simple
 [init]
 	defaultBranch = mainline
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
