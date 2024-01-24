@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "_{date:yyyy-MM-dd}",
+    "uid" : "FC133E0C-1C98-417F-8A04-68A1FBD2DC5D",
+    "name" : "Filename Date",
+    "keyword" : "filedate"
+  }
+}

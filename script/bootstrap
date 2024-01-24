@@ -118,15 +118,6 @@ install_dotfiles
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
 then
-  # Install iTerm2
-  info "Installing iTerm2..."
-  . script/iterm2
-  if [ $? -eq 0 ];
-  then
-    success "iTerm2 installed"
-  else
-    fail "error installing iTerm2"
-  fi
 
   # Install Homebrew Packages
   info "Installing homebrew formulae..."

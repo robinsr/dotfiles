@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "> [!info] Did you know?\n> {cursor}",
+    "uid" : "7D047380-8349-4A82-8232-91248A1AF942",
+    "name" : "Callout info",
+    "keyword" : "info"
+  }
+}

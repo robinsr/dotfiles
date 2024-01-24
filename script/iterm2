@@ -16,9 +16,6 @@ then
   return 0
 fi
 
-wget -P $TEMPDIR $ROOT_URL$FILENAME
-unzip -d $TEMPDIR $TEMPDIR$FILENAME
-mv $TEMPDIR$APP_NAME /Applications/
-rm $TEMPDIR$FILENAME
+brew install iTerm
 
 return 0

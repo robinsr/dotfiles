@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 #
 # Homebrew
 #
@@ -17,15 +17,41 @@ packages=(
   # Install GNU core utilities (those that come with OS X are outdated)
   coreutils
 
-  # Install Bash 4
-  bash
+  # Uncomment to install Bash; default on mac is zsh
+  # bash
+  # bash-completion
 
   # Install everything else
   git
+
+  # htop is an interactive process viewer for Unix systems
+  # https://htop.dev/
   htop
   node
+
+  # grc is a terminal colorizer utility
+  # https://kassiopeia.juls.savba.sk/~garabik/software/grc.html
   grc
-  bash-completion
+)
+
+# Set of Casks (GUI apps) I want installed by default
+declare -A casks
+casks=(
+  iterm2 "iTerm.app"
+
+  # Amethyst is a tiling window manager for macOS
+  # https://github.com/ianyh/Amethyst
+  amethyst "Amethyst.app"
+
+  # MonitorControl is a macOS app to control external monitors brightness & volume
+  monitorcontrol "MonitorControl.app"
+
+  # Developer Tools
+  sublime-text "Sublime Text.app"
+  github "GitHub Desktop.app"
+  jetbrains-toolbox "JetBrains Toolbox.app"
+
+  spotify "Spotify.app"
 )
 
 # Make sure we’re using the latest Homebrew
@@ -42,6 +68,21 @@ for i in "${packages[@]}"
 do
   info "installing $i"
   CMD="brew install $i"
+  $CMD >/dev/null 2>/dev/null
+  success "$i is now installed"
+done
+
+for key value in ${(kv)casks}
+do
+  info "installing $key"
+
+  # Exit silently if the app is already installed
+  if [ -d "$value" ]
+  then
+    continue 0
+  fi
+
+  CMD="brew install --cask $i"
   $CMD >/dev/null 2>/dev/null
   success "$i is now installed"
 done
