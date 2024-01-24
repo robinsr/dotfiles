@@ -1,4 +1,6 @@
 # Default settings for amethyst Repo: `https://github.com/ianyh/Amethyst`
+# 
+# 2024-01-24
 #
 # Note due to issue 1419 (https://github.com/ianyh/Amethyst/issues/1419) some
 # config values may conflict and not work if they are the same as the default

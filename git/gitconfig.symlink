@@ -5,6 +5,8 @@
 	email = ryan.b.robinson@gmail.com
 [credential]
         helper = osxkeychain
+[init]
+	defaultBranch = main
 [alias]
         # Display concise repository status
         wtf  = !$DOTFILES/bin/git-wtf
@@ -55,10 +57,10 @@
         # Include summaries of merged commits in newly created merge commit messages
         log = true
 
-        # Use `origin` as the default remote on the `mainline` branch in all cases
-[branch "mainline"]
+[branch "main"]
         remote = origin
-        merge = refs/heads/mainline
+        merge = refs/heads/main
+
 [core]
         excludesfile = ~/.gitignore
 	editor = subl --wait
@@ -78,8 +80,6 @@
         #
         # Setting to git 2.0 default to surpress warning message
         default = simple
-[init]
-	defaultBranch = mainline
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
