@@ -2,4 +2,7 @@
 
 # todo - rehome oh-my-zsh to be out of repo
 config/zsh/oh-my-zsh/
+.zsh_sessions
+.zcompdump*
+.zsh_history
 
