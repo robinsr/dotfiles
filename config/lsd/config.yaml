@@ -68,6 +68,7 @@ icons:
 ignore-globs:
  - .git
  - node_modules
+ - build
 
 # == Indicators ==
 # Whether to add indicator characters to certain listed files.

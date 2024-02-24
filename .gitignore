@@ -1,1 +1,5 @@
 .DS_Store
+
+# todo - rehome oh-my-zsh to be out of repo
+config/zsh/oh-my-zsh/
+

@@ -27,19 +27,24 @@ floating:
   - com.apple.iBooksX
   - com.apple.MobileSMS
   - com.apple.ActivityMonitor
+  - com.apple.systempreferences
   - com.spotify.client
   - com.runningwithcrayons.Alfred
   - com.runningwithcrayons.Alfred-Preferences
   - com.IdeaPunch.ColorSlurp
   - com.nordvpn.macos
+  - com.utmapp.UTM
+  - org.pqrs.Karabiner-Elements.Settings
+  - org.pqrs.Karabiner-EventViewer
 
+    
 # layouts - Ordered list of layouts to use by layout key (default tall, wide,
 # fullscreen, and column).
 layouts:
-  - tall
   - fullscreen
+  - tall
   - tall-right
-  # - wide
+  - wide
   - two-pane
   # - middle-wide
   # - 3column-left
@@ -49,10 +54,10 @@ layouts:
   # - 4column-right
   - column
   # - row
-  - floating
+  # - floating
   # - widescreen-tall
   # - widescreen-tall-right
-  # - bsp
+  - bsp
 
 # First mod (default option + shift).
 mod1:
