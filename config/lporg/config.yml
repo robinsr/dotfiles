@@ -1,0 +1,160 @@
+apps:
+  pages:
+    - number: 1
+      items:
+        - App Store
+        - Safari
+        - Notes
+        - Podcasts
+        - Weather
+        - Books
+        - Home
+        - Clock
+        - System Settings
+        - folder: Apple
+          pages:
+            - number: 1
+              items:
+                - Mail
+                - Contacts
+                - Calendar
+                - Reminders
+                - FaceTime
+                - Messages
+                - Maps
+                - Find My
+                - Photos
+                - Preview
+                - Dictionary
+        - folder: Productivity
+          pages:
+            - number: 1
+              items:
+                - Freeform
+                - Photo Booth
+                - Calculator
+                - Siri
+        - Brave Browser
+        - iTerm
+        - WebStorm
+        - Sublime Text
+        - GitHub Desktop
+        - Neovide
+        - JetBrains Toolbox
+        - Amethyst
+        - NordVPN
+        - Spotify
+        - Obsidian
+        - Shortcuts
+        - GitButler
+        - Spotlight
+        - Screen Sharing
+    - number: 2
+      items:
+        - folder: Utilities
+          pages:
+            - number: 1
+              items:
+                - MonitorControl
+                - AdGuard for Safari
+                - Dark Reader for Safari
+                - Save to Raindrop.io
+                - Bartender 4
+                - Logi Options
+                - QuickTime Player
+                - TextEdit
+                - Grapher
+                - Time Machine
+                - Font Book
+                - Mission Control
+                - Chess
+                - Stickies
+                - Image Capture
+                - VoiceOver Utility
+                - AirPort Utility
+                - Migration Assistant
+                - Terminal
+                - Activity Monitor
+                - Console
+                - Keychain Access
+                - System Information
+                - Automator
+                - Script Editor
+                - Disk Utility
+                - Digital Color Meter
+                - ColorSync Utility
+                - Screenshot
+                - Bluetooth File Exchange
+                - Audio MIDI Setup
+        - Home/ Desk Lamp Up
+        - Alfred 5
+        - zoom.us
+        - ColorSlurp
+        - Visual Studio Code
+        - Postman
+        - RedisInsight
+        - Pieces OS
+        - Pieces
+        - Hammerspoon
+        - ChatGPT
+        - Docker
+        - Zed
+        - Expressions
+        - Clearview X
+        - YouTube
+        - Warp
+        - CrystalFetch
+        - UTM
+        - IP Scanner
+        - Raindrop.io
+        - folder: Apple
+          pages:
+            - number: 1
+              items:
+                - Voice Memos
+                - Stocks
+                - News
+                - TV
+                - Music
+        - folder: Desktop Utilities
+          pages:
+            - number: 1
+              items:
+                - Fluor
+                - CheatSheet
+                - SwiftBar
+                - CustomShortcuts
+                - Karabiner-EventViewer
+                - Karabiner-Elements
+widgets:
+  pages: []
+dock_items:
+  apps:
+    - /System/Applications/System Settings.app
+    - /System/Applications/Launchpad.app
+    - /System/Applications/App Store.app
+    - /System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app
+    - /Applications/Brave Browser.app
+    - /Users/ryan/Applications/WebStorm.app
+    - /Applications/Visual Studio Code.app
+    - /Applications/iTerm.app
+    - /System/Applications/Messages.app
+    - /System/Applications/Mail.app
+    - /System/Applications/Calendar.app
+    - /Applications/Sublime Text.app
+    - /Applications/Spotify.app
+    - /Applications/GitHub Desktop.app
+    - '/Users/ryan/Applications/Home: Desk Lamp Up.app'
+  others:
+    - path: ~/Downloads
+      view: 1
+      sort: 2
+  settings:
+    autohide: true
+    largesize: 59
+    magnification: true
+    minimize-to-application: false
+    mru-spaces: false
+    show-recents: false
+    tilesize: 32
+desktop: {}

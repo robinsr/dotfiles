@@ -1,0 +1,6 @@
+[manager]
+sort_by = "extension"
+sort_sensitive = true
+sort_dir_first = true
+show_hidden = true
+
