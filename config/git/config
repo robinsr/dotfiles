@@ -1,0 +1,37 @@
+[user]
+	name = robinsr
+	email = ryan.b.robinson@gmail.com
+
+[core]
+	editor = subl -n -w
+    pager = delta
+
+[init]
+	defaultBranch = main
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+
+[color "diff"]
+    old = red 
+    new = green
+    meta = magenta 
+    frag = cyan
+
+[alias]
+    logs = log --graph --pretty=format:'%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
