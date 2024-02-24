@@ -1,18 +1,18 @@
 [user]
-	name = robinsr
-	email = ryan.b.robinson@gmail.com
+    name = robinsr
+    email = ryan.b.robinson@gmail.com
 
 [core]
-	editor = subl -n -w
+    editor = nvim 
     pager = delta
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
 
 [color "diff"]

@@ -1,6 +1,11 @@
-# homebrew error:
-# -- borders: This software does not run on macOS versions older than Sonoma.
-#
-# So I will keep this file here until I upgrade to Sonoma
 
+options=(
+	style=round
+	width=6.0
+	hidpi=on
+	active_color=0xff00ff87
+	inactive_color=0xff414550
+)
+
+borders "${options[@]}"
 

@@ -194,11 +194,20 @@ function gitpick() {
 }
 
 # =====
-# VIVID
+# VIVID (and colors in general)
 # =====
 export VIVID_THEME='molokai'
 export LS_COLORS="$(vivid generate $VIVID_THEME)"
+alias __ls=ls
 alias ls='gls --color'
+
+
+# =======
+# BORDERS
+# =======
+# Move this to .zprofile/.login to be defined in .bordersrc 
+# Would be cool to get this from vivid direct
+export JANK_BORDER_ACTIVE='00ff87'
 
 
 # =======
