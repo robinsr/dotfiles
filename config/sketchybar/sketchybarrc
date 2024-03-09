@@ -1,0 +1,86 @@
+#!/bin/sh
+
+eval "$HOME/.config/yabai/yabai.sh"
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+ITEM_DIR="$HOME/.config/sketchybar/items"
+
+sk_add_item () {
+  sketchybar --add item clock right \
+             --set clock update_freq=10 icon=$APPLE script="$PLUGIN_DIR/clock.sh"
+}
+
+
+sketchybar --add event ya-window-event
+sketchybar --add event yalayoutchange
+sketchybar --add event yanewlabel
+
+FONT="SF Pro"
+
+BORDER_RADIUS_ROUNDED=18
+BORDER_RADIUS_SQUARE=10
+
+BAR_DOCKED=(
+  position=top
+  y_offset=0
+  height=32
+  margin=0
+  blur_radius=10
+  color=$BAR_COLOR
+  corner_radius=0
+  border_width=0
+  shadow=on
+)
+
+BAR_FLOATING=(
+  position=top
+  y_offset=2
+  height=38
+  margin=2
+  blur_radius=10
+  color=$BAR_COLOR
+  corner_radius=$BORDER_RADIUS_SQUARE
+  border_width=2
+  border_color=$WHITE_40
+  shadow=on
+)
+
+sketchybar --bar "${BAR_DOCKED[@]}"
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="$FONT:Bold:14.0"
+  label.font="$FONT:SemiBold:13.0"
+  icon.color=$ICON_COLOR
+  label.color=$ICON_COLOR
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+
+sketchybar --default "${default[@]}"
+
+# -- Items Right --
+source "$ITEM_DIR/spaces-item.sh"
+source "$ITEM_DIR/app-item.sh"
+
+# -- Items Left --
+source "$ITEM_DIR/clock-item.sh"
+source "$ITEM_DIR/battery-item.sh"
+source "$ITEM_DIR/volume-item.sh"
+
+# source $PLUGIN_DIR/cpu.sh
+
+sketchybar --hotload on
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
