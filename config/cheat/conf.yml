@@ -1,0 +1,40 @@
+---
+# The editor to use with 'cheat -e <sheet>'. Defaults to $EDITOR or $VISUAL.
+editor: nvim
+
+# Should 'cheat' always colorize output?
+colorize: true
+
+# Which 'chroma' colorscheme should be applied to the output?
+# Options are available here:
+#   https://github.com/alecthomas/chroma/tree/master/styles
+style: catppuccin-mocha
+
+# Which 'chroma' "formatter" should be applied?
+# One of: "terminal", "terminal256", "terminal16m"
+formatter: terminal16m
+
+# Through which pager should output be piped?
+# 'less -FRX' is recommended on Unix systems
+# 'more' is recommended on Windows
+pager: less
+
+cheatpaths:
+  # Cheatpath properties mean the following:
+  #   'name': the name of the cheatpath (view with 'cheat -d', filter with 'cheat -p')
+  #   'path': the filesystem path of the cheatsheet directory (view with 'cheat -d')
+  #   'tags': tags that should be automatically applied to sheets on this path
+  #   'readonly': shall user-created ('cheat -e') cheatsheets be saved here?
+  - name: community
+    path: ~/.config/.local/share/cheat/cheatsheets/community
+    tags: [ community ]
+    readonly: true
+
+  # If you have personalized cheatsheets, list them last. They will take
+  # precedence over the more global cheatsheets.
+  - name: personal
+    path: ~/.config/cheat/cheatsheets/personal
+    tags: [ personal ]
+    readonly: false
+
+

@@ -4,10 +4,8 @@ vim.g.markdown_fenced_languages = {
   "ts=typescript"
 }
 
-local tsserver = {
+return {
   root_dir = nvim_lsp.util.root_pattern("package.json"),
-  single_file_support = false,
+  single_file_support = true,
 }
-
-return tsserver
 

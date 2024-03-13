@@ -1,0 +1,49 @@
+definitions:
+  vars:
+    YABAI_BAR_TOP: &YABAI_BAR_TOP 30 
+    YABAI_BAR_BOTTOM: &YABAI_BAR_BOTTOM 30
+
+
+config:
+  # Debug logging
+  - [ debug_output, off ]
+  # Default layout (bsp, stack, float) ('float' effectively disables yabai's tile management)
+  - [ layout, bsp ]
+  # Insert new windows 
+  - [ window_placement, first_child ]
+  # Leave room for sketchybar
+  - [ external_bar, "all:$0:$1", [ *YABAI_BAR_TOP, *YABAI_BAR_BOTTOM ] ]
+  
+  # == Window Settings ==
+  
+  # Disable changing window opacity (change to 'on')
+  - [ window_opacity, off ]
+  - [ active_window_opacity, 1.0 ]
+  - [ normal_window_opacity, 0.9 ]
+  - [ window_animation_duration, 0.2 ]
+  - [ window_animation_easing, ease_in_out_quint ]
+
+  # Add 12px padding for managed windows 
+  - [ top_padding, 12 ]
+  - [ bottom_padding, 12 ]
+  - [ left_padding, 10 ]
+  - [ right_padding, 10 ]
+  - [ window_gap, 12 ]
+  
+  # == MOUSE SETTINGS ==
+  
+  # Center mouse on window with focus
+  - [ mouse_follows_focus, off ]
+  # Modifier for clicking and dragging with mouse
+  - [ mouse_modifier, alt ]
+  # Set modifier + LEFT-click drag to move window
+  - [ mouse_action1, move ]
+  # Set modifier + RIGHT-click drag to resize window
+  - [ mouse_action2, resize ]
+  # When window is dropped in center of another window, swap them 
+  # (on edges it will split it). Options: swap|stack
+  - [ mouse_drop_action, swap ]
+rules:
+  - app: "^System Settings$"
+    manage: off
+signals:

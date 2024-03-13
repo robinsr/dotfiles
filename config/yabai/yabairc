@@ -1,55 +1,131 @@
-# for this to work you must configure sudo such that
-# it will be able to run the command without password
+# =============================
+# Yabai - tiling window manager
+# =============================
 
+# source "$HOME/.config/zsh/notify.sh"
+source "$HOME/.config/yabai/yabai.sh"
+
+# Enable apple scripting addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
-# default layout (can be bsp, stack or float)
+# Debug logging
+yabai -m config debug_output off
+
+# Default layout (bsp, stack, float) ('float' effectively disables yabai's tile management)
 yabai -m config layout bsp
 
-# new window spawns to the right if vertical split, or bottom if horizontal split
-yabai -m config window_placement second_child
+# Insert new windows 
+yabai -m config window_placement first_child
 
-# padding set to 12px
+# Leave room for sketchybar
+yabai -m config external_bar all:$YABAI_BAR_TOP:$YABAI_BAR_BOTTOM
+
+# ===============
+# Window Settings
+# ===============
+
+# Disable changing window opacity (change to 'on')
+yabai -m config window_opacity off
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+yabai -m config window_animation_duration 0.2
+yabai -m config window_animation_easing ease_in_out_quint
+
+# Add 12px padding for managed windows 
 yabai -m config top_padding 12
 yabai -m config bottom_padding 12
-yabai -m config left_padding 12
-yabai -m config right_padding 12
+yabai -m config left_padding 10
+yabai -m config right_padding 10
 yabai -m config window_gap 12
 
-# -- mouse settings --
+# ==============
+# MOUSE SETTINGS
+# ==============
 
-# center mouse on window with focus
-# yabai -m config mouse_follows_focus on
+# Center mouse on window with focus
+yabai -m config mouse_follows_focus off
 
-# modifier for clicking and dragging with mouse
+# Modifier for clicking and dragging with mouse
 yabai -m config mouse_modifier alt
 
-# set modifier + left-click drag to move window
+# Set modifier + LEFT-click drag to move window
 yabai -m config mouse_action1 move
 
-# set modifier + right-click drag to resize window
+# Set modifier + RIGHT-click drag to resize window
 yabai -m config mouse_action2 resize
 
-# # when window is dropped in center of another window, swap them (on edges it will split it)
-yabai -m mouse_drop_action swap
-
+# When window is dropped in center of another window, swap them 
+# (on edges it will split it). Options: swap|stack
+yabai -m config mouse_drop_action swap
 
 # # disable specific apps
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="^QuickTime Player$" manage=off
+yabai -m rule --add app="^Karabiner-.*$" manage=off
+yabai -m rule --add app="^Home$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^Alfred.*$" manage=off
+yabai -m rule --add app="^ColorSlurp$" manage=off
+yabai -m rule --add app="^Shortcuts$" manage=off
+yabai -m rule --add app="^UTM$" manage=off
+# yabai -m rule --add app="^Spotify$" manage=off
+
+# Webstorm project windows use the title format of...
+#      "project-name [~/path/to/project-dir] – …/current/file.ext"
+# Tool windows typically use one or more word titles
+# yabai -m rule --add app="^WebStorm$" title="^([\w]+\s?)+$" manage=off
+yabai -m rule --add label="WebstormDialogs" app="^WebStorm$" title="^(Settings|Move|Rename|[\w\s]*)$" manage=off
 
 
-# ====================
-# Window Modifications
-# ====================
+# ------
+# Events
+# ------
 
-yabai -m config window_opacity off
-# yabai -m config active_window_opacity 1.0
-# yabai -m config normal_window_opacity 0.9
+# Reference:
+# application_launched   -  $YABAI_PROCESS_ID
+# application_terminated   -  $YABAI_PROCESS_ID
+# application_front_switched   -  $YABAI_PROCESS_ID $YABAI_RECENT_PROCESS_ID
+# application_activated   -  $YABAI_PROCESS_ID
+# application_deactivated   -  $YABAI_PROCESS_ID
+# application_visible   -  $YABAI_PROCESS_ID
+# application_hidden   -  $YABAI_PROCESS_ID
+# window_created   -  $YABAI_WINDOW_ID
+# window_destroyed   -  $YABAI_WINDOW_ID
+# window_focused   -  $YABAI_WINDOW_ID
+# window_moved   -  $YABAI_WINDOW_ID
+# window_resized   -  $YABAI_WINDOW_ID
+# window_minimized   -  $YABAI_WINDOW_ID
+# window_deminimized   -  $YABAI_WINDOW_ID
+# window_title_changed   -  $YABAI_WINDOW_ID
+# space_created   -  $YABAI_SPACE_ID
+# space_destroyed   -  $YABAI_SPACE_ID
+# space_changed   -  $YABAI_SPACE_ID $YABAI_RECENT_SPACE_ID
+# display_added   -  $YABAI_DISPLAY_ID
+# display_removed   -  $YABAI_DISPLAY_ID
+# display_moved   -  $YABAI_DISPLAY_ID
+# display_resized   -  $YABAI_DISPLAY_ID
+# display_changed   -  $YABAI_DISPLAY_ID $YABAI_RECENT_DISPLAY_ID
+# mission_control_enter   -  $YABAI_MISSION_CONTROL_MODE
+# mission_control_exit   -  $YABAI_MISSION_CONTROL_MODE
+# dock_did_change_pref
+# dock_did_restart
+# menu_bar_hidden_changed
+# system_woke
 
 
-# borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
+# Trigger sketchybar on window focus change
+yabai -m signal --add event=window_focused action="sketchybar --update"
+yabai -m signal --add event=space_changed action="sketchybar --update"
+# yabai -m signal --add event=application_launched action="ya-notify $YABAI_PROCESS_ID"
+# yabai -m signal --add event=application_terminated action="ya-notify $YABAI_PROCESS_ID"
+
+# yabai -m signal --add event=mission_control_enter label=test-action \
+# 	action="echo \"\$(date '+%d/%m %I:%M:%S %p') - Running signal \"
+# 		source \"$HOME/.zshenv\"
+# 		numdisplay=\"\$(yabai -m query --displays | jq 'length')\"
+# 		if [[ numdisplay == '1' ]]; then sketcyhbar --set clock label=\"A\"; fi
+# 		if [[ numdisplay == '2' ]]; then sketchybar --set clock label=\"B\"; fi
+# 		"
+
 

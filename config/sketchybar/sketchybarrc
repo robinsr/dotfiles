@@ -1,8 +1,9 @@
 #!/bin/sh
 
 eval "$HOME/.config/yabai/yabai.sh"
-source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
-source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+source "$HOME/.config/sketchybar/colors.sh"
+source "$HOME/.config/sketchybar/icons.sh"
+source "$HOME/.config/sketchybar/config.zsh"
 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 ITEM_DIR="$HOME/.config/sketchybar/items"
@@ -17,21 +18,25 @@ sketchybar --add event ya-window-event
 sketchybar --add event yalayoutchange
 sketchybar --add event yanewlabel
 
-FONT="SF Pro"
+NOTCH=(
+  notch_width=200
+  notch_offset=1
+)
 
-BORDER_RADIUS_ROUNDED=18
-BORDER_RADIUS_SQUARE=10
+# Display: (main, all, <positive_integer list>)
 
 BAR_DOCKED=(
-  position=top
+  position=bottom
   y_offset=0
   height=32
   margin=0
-  blur_radius=10
-  color=$BAR_COLOR
+  blur_radius=0
+  color=$(set_alpha $BAR_COLOR 90)
   corner_radius=0
   border_width=0
-  shadow=on
+  shadow=off
+  display=all
+  topmost=on
 )
 
 BAR_FLOATING=(
@@ -40,7 +45,7 @@ BAR_FLOATING=(
   height=38
   margin=2
   blur_radius=10
-  color=$BAR_COLOR
+  color=$(set_alpha $BAR_COLOR 75)
   corner_radius=$BORDER_RADIUS_SQUARE
   border_width=2
   border_color=$WHITE_40
@@ -73,10 +78,17 @@ sketchybar --default "${default[@]}"
 source "$ITEM_DIR/spaces-item.sh"
 source "$ITEM_DIR/app-item.sh"
 
+zx ~/workspace/env/node-sketchybar/src/test-script.mjs --json '{"name":"dildo-item"}'
+
+
+# sketchybar --add item hextest left \
+#            --set hextest label="$(set_alpha $RED 90)"
+
 # -- Items Left --
 source "$ITEM_DIR/clock-item.sh"
 source "$ITEM_DIR/battery-item.sh"
 source "$ITEM_DIR/volume-item.sh"
+source "$ITEM_DIR/dropdown-item.sh"
 
 # source $PLUGIN_DIR/cpu.sh
 

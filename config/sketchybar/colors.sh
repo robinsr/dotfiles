@@ -1,5 +1,14 @@
 #!/bin/bash
 
+set_alpha () {
+	COLOR=$1
+	AMT=$(($2 * 255 / 100))
+	HEX="$(echo $COLOR | sed -E 's/^0x[0-9a-f]{2}//')"
+	ALPHA=$(printf '%X' $AMT)
+
+	echo "0x$ALPHA$HEX"
+}
+
 # Color Palette
 export CLAY=0xa024273a # EbonyClay
 export TUNA=0x903c3e4f # Tuna

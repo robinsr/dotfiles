@@ -3,95 +3,142 @@
 #   - SPACE = a macOS Space; sequential desktops arranged horizontally
 #   - DISPLAY = laptop screen or external monitor
 
+# General Hotkey Patterns
+#
+# - Changing focus: shift + alt + [key]
+# - Moving window:  shift + alt + ctrl + [key]
+#
+# - within a SPACE: J and K
+# - across a SPACE: H and L
+# - across a SCREEN: O and p 
+#
+# Directions:
+#
+#             North 
+#              (w)
+#               ↑
+#   West/prev ← • →  East/next
+#    (a,h,o)    ↓     (d,l,p)
+#              (s)
+#             South
+#
+# Key Mapping (qwerty (lowercase) => COLEMAK_DH (uppercase)
+# qQ, wW, eF, rP, tB, yJ, uL, iU, oY, p;
+# aA, sR, dS, fT, gG, hM, jN, kE, lI, ;O
+# zZ, xC, cD, vV, bZ, nK, mH
+#
+# "default" mode = qwerty
+#
 
-# ===========================
-# -- Changing Window Focus --
-# ===========================
+# default (qwerty) = green
+:: default : borders active_color=0xff00ff87
+# colemak = red
+:: colemkd : borders active_color=0xffdd3322
 
-# change window focus within space
-alt - down : yabai -m window --focus south
-alt - up : yabai -m window --focus north
-alt - left : yabai -m window --focus west
-alt - right : yabai -m window --focus east
+# Within a space - change window focus
+default < shift + alt - j : ya_cycle_focus_cw
+default < shift + alt - k : ya_cycle_focus_ccw
+colemkd < shift + alt - n : ya_cycle_focus_cw
+colemkd < shift + alt - e : ya_cycle_focus_ccw
 
-# change focus between external displays (left and right)
-alt - s: yabai -m display --focus west
-alt - g: yabai -m display --focus east
+# Within a space - rotate window positions
+default < shift + alt + ctrl - j : ya_cycle_pos_cw
+default < shift + alt + ctrl - k : ya_cycle_pos_ccw
+colemkd < shift + alt + ctrl - n : ya_cycle_pos_cw
+colemkd < shift + alt + ctrl - e : ya_cycle_pos_ccw
 
-# change focus one space left (prev) or right (next)
-ctrl - left : yabai -m space --focus prev
+# Within a space - rotate layout clockwise
+default < shift + alt - r : yabai -m space --rotate 90
+colemkd < shift + alt - p : yabai -m space --rotate 90
+
+# Within a space - maximize active window
+default < shift + alt - v : yabai -m window --toggle zoom-fullscreen
+colemkd < shift + alt - v : yabai -m window --toggle zoom-fullscreen
+
+# Within a space - cycle the layout type
+default, colemkd < shift + alt - space : ya_cycle_layout
+
+# Within a space - balance out tree of windows (resize to occupy same area)
+default < shift + alt - e : yabai -m space --balance
+colemkd < shift + alt - f : yabai -m space --balance
+
+# ----------
+
+# Across a space - throw window
+default < shift + ctrl + alt - h : ya_throw_prev_space
+default < shift + ctrl + alt - l : ya_throw_next_space
+colemkd < shift + ctrl + alt - m : ya_throw_prev_space
+colemkd < shift + ctrl + alt - i : ya_throw_next_space
+
+# Across a space - move focus (disable shortcut in system prefs)
+default < shift + alt - l : yabai -m space --focus next
+default < shift + alt - h : yabai -m space --focus prev
+colemkd < shift + alt - i : yabai -m space --focus next
+colemkd < shift + alt - m : yabai -m space --focus prev
+
 ctrl - right : yabai -m space --focus next
+ctrl - left : yabai -m space --focus prev
+
+# ----------
+
+# Across screens - change screen focus
+default < shift + alt - o: yabai -m display --focus west
+default < shift + alt - p: yabai -m display --focus east
+colemkd < shift + alt - y : yabai -m space --focus prev
+colemkd < shift + alt - 0x29 : yabai -m space --focus prev
+
+# Across screens - throw window
+default < shift + ctrl + alt - o: ya_throw_next_display
+default < shift + ctrl + alt - p: ya_throw_prev_display
+colemkd < shift + alt - y : yabai -m space --focus prev
+colemkd < shift + alt - 0x29 : yabai -m space --focus prev
 
 
-# ==========================
-# -- Modifying the Layout --
-# ==========================
+# flip along y_axis
+# shift + alt - y : yabai -m space --mirror y-axis
 
-# rotate layout clockwise
-shift + alt - r : yabai -m space --rotate 270
 
-# flip along y-axis
-shift + alt - y : yabai -m space --mirror y-axis
+# flip along x_axis
+# shift + alt - x : yabai -m space --mirror x-axis
 
-# flip along x-axis
-shift + alt - x : yabai -m space --mirror x-axis
 
 # toggle window float
-shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+# shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 
-# ===========================
-# -- Modifying Window Size --
-# ===========================
-
-# maximize a window
-shift + alt - m : yabai -m window --toggle zoom-fullscreen
-
-# balance out tree of windows (resize to occupy same area)
-shift + alt - e : yabai -m space --balance
-
-
-# ===========================
-# -- Moving Windows Around --
-# ===========================
+# ----------
 
 # swap windows
-shift + alt - j : yabai -m window --swap south
-shift + alt - k : yabai -m window --swap north
-shift + alt - h : yabai -m window --swap west
-shift + alt - l : yabai -m window --swap east
+default < shift + ctrl - s : yabai -m window --swap south
+default < shift + ctrl - w : yabai -m window --swap north
+default < shift + ctrl - a : yabai -m window --swap west
+default < shift + ctrl - d : yabai -m window --swap east
+colemkd < shift + ctrl - r : yabai -m window --swap south
+colemkd < shift + ctrl - w : yabai -m window --swap north
+colemkd < shift + ctrl - a : yabai -m window --swap west
+colemkd < shift + ctrl - s : yabai -m window --swap east
 
 # move window and split
-ctrl + alt - j : yabai -m window --warp south
-ctrl + alt - k : yabai -m window --warp north
-ctrl + alt - h : yabai -m window --warp west
-ctrl + alt - l : yabai -m window --warp east
+default < ctrl + alt - s : yabai -m window --warp south
+default < ctrl + alt - w : yabai -m window --warp north
+default < ctrl + alt - a : yabai -m window --warp west
+default < ctrl + alt - d : yabai -m window --warp east
+colemkd < ctrl + alt - r : yabai -m window --warp south
+colemkd < ctrl + alt - w : yabai -m window --warp north
+colemkd < ctrl + alt - a : yabai -m window --warp west
+colemkd < ctrl + alt - s : yabai -m window --warp east
 
-# move window to display left and right
-shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
-shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
+# =============
+# MODE CHANGING
+# ============= 
+# from 'default' mode, activate mode 'colemkd'
+default < shift + alt - z ; colemkd
+#
+# from 'colemkd' mode, activate mode 'default'
+colemkd < shift + alt - x ; default
 
-# move window to prev and next space
-shift + alt - p : yabai -m window --space prev;
-shift + alt - n : yabai -m window --space next;
-
-# move window to space #
-shift + alt - 1 : yabai -m window --space 1;
-shift + alt - 2 : yabai -m window --space 2;
-shift + alt - 3 : yabai -m window --space 3;
-shift + alt - 4 : yabai -m window --space 4;
-shift + alt - 5 : yabai -m window --space 5;
-shift + alt - 6 : yabai -m window --space 6;
-shift + alt - 7 : yabai -m window --space 7;
-
-
-# ===============================
-# -- Start/Stopp/Restart Yabai --
-# ===============================
-
-# stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
+# Restart yabai
+default, colemkd < shift + ctrl + alt - z : ya_restart
 
 
+default, colemkd < shift + ctrl - c : echo "Startup files: $STARTUP_FILES"

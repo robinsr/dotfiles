@@ -1,12 +1,6 @@
 local merge = vim.tbl_deep_extend
-local whichmap = {}
 
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
-    return
-end
-
-local which_key_setup = {
+local wk_setup = {
 	plugins = {
 		-- shows a list of your marks on ' and `
 		marks = true,
@@ -22,13 +16,13 @@ local which_key_setup = {
 		},
 
 		presets = {
-			operators = true, -- adds help for operators like d, y, ...
+			operators = false, -- adds help for operators like d, y, ...
 			motions = true, -- adds help for motions
 			text_objects = true, -- help for text objects triggered after entering an operator
 			windows = true, -- default bindings on <c-w>
 			nav = true, -- misc bindings to work with windows
 			z = true, -- bindings for folds, spelling and others prefixed with z
-			g = true, -- bindings for prefixed with g
+			g = false, -- bindings for prefixed with g
 		},
 	},
 
@@ -118,7 +112,7 @@ local which_key_setup = {
 	},
 }
 
-local which_key_opts = {
+local bind_opts = {
     mode = "n", -- NORMAL mode
     prefix = "",
     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -127,41 +121,20 @@ local which_key_opts = {
     nowait = true, -- use `nowait` when creating keymaps
 }
 
-which_key.setup(which_key_setup);
-
--- whichmap.example = {
---   opts = {
---     name = 'Example',
---     prefix = '<leader>e',
---     mode = 'n',
---   },
---   bindings = {
---     e = { 'Just a label' }
---   }
--- }
-
--- Register complete groups of bindings
-local register = function (group, pre, mode)
-  local opts = { prefix = pre, mode = mode }
-  which_key.register(group, merge("force", which_key_opts, opts))
-end
-
--- Add single bindings to a group (work-in-progress)
-local add = function (groupName, lsa, rsa)
-  if whichmap[groupName] ~= nil then
-    whichmap[groupName].bindings[lsa] = rsa
-  end
-end
-
-
-local setup = function ()
-  for _, v in pairs(whichmap) do
-    register(v.bindings, v.opts.prefix, v.opts.mode)
-  end
-end
-
 return {
-  register = register,
-  setup = setup,
+	'folke/which-key.nvim',
+  event = "VeryLazy",
+  config = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+  	
+  	local wk = require('which-key')
+  	wk.setup(wk_setup)
+  	
+  	local user = require('user.keys')
+		-- wk.register(user.colemakdh, bind_opts)
+  	wk.register(user.normal)
+  	wk.register(user.visual, { mode = "v" })
+  	wk.register(user.insert, { mode = "i" })
+  end
 }
-

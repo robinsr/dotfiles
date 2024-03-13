@@ -6,8 +6,9 @@ export TERM=xterm-256color
 export ZSH="$ZDOTDIR/oh-my-zsh"
 
 # EDIT THIS FILE with these aliases 
-alias zshrc="vim $ZDOTDIR/.zshrc"
-alias zconfig="vim $ZDOTDIR/.zshrc"
+alias zshrc="e $ZDOTDIR/.zshrc"
+alias zconfig="e $ZDOTDIR/.zshrc"
+alias zenv="e $HOMW/.zshenv"
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -72,25 +73,27 @@ zstyle ':omz:update' frequency 30
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
+# =======
+# PLUGINS
+# =======
+
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(macos iterm2 brew git zoxide colored-man-pages zsh-autosuggestions)
+
+zstyle :omz:plugins:iterm2 shell-integration yes
 
 # ======
 # PRE-OHMYZSH-INIT STUFF 
 # ======
-#
-# (must be done before compinit called in oh-my-zsh)
-# Adds homebrew env variables and path
-eval "$(/opt/homebrew/bin/brew shellenv)"
-# # Adds webstorm and other Jetbrains apps to path 
+
+# Adds webstorm and other Jetbrains apps to path 
 export PATH="$PATH:/Users/ryan/Library/Application Support/JetBrains/Toolbox/scripts"
-# # Adds Sublime Text executable to path
+
+# Adds Sublime Text executable to path
 export PATH="$PATH:Applications/Sublime Text.app/Contents/SharedSupport/bin"
-eval "$(zoxide init zsh)"
+
+export PATH="$PATH:/Library/Application Support/org.pqrs/Karabiner-Elements/bin"
 
 # ================
 # Source oh-my-zsh 
@@ -112,38 +115,11 @@ unsetopt share_history
 # User configuration
 # ==================
 
+# Lists environment variables, sorted
+alias vars='env | sort'
 alias lsfpath='echo $FPATH | sed "s/:/\n/g"'
 
 export BAT_THEME="Dracula"
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# bindkey "^[[1;3C" forward-word
-# bindkey "^[[1;3D" backward-word
 
 # =============
 # NeoVim/editor
@@ -155,12 +131,9 @@ alias v="nvim"
 alias vimconfig='e ~/.config/nvim/init.lua'
 
 
-# ===========
-# LSD SECTION
-# ===========
-# Lists environment variables, sorted
-alias vars='env | sort'
-
+# ===============
+# LSD (LS-Deluxe)
+# ===============
 lsd_common="--date relative"
 alias elsd="lsd $lsd_common"
 # - LSD LIST
@@ -169,17 +142,16 @@ alias ll="elsd -l"
 #   (-a = "all", -A = "almost-all" (exclude implied . and ..)
 alias la='elsd -lA -I ""'
 # - LSD TREE - Show tree style
-#     Would be nide to configure the ignore globs
-#     Defaults to depth=2, but will accept only the last depth arg (so can override)
 alias lt='elsd --tree -a --depth 2'
-alias lt3='elsd --tree -a --depth 3'
-alias lt4='elsd --tree -a --depth 4'
-alias lt5='elsd --tree -a --depth 5'
-alias lt6='elsd --tree -a --depth 6'
+alias ltt='elsd --tree -a --depth 3'
+alias lttt='elsd --tree -a --depth 4'
+alias ltttt='elsd --tree -a --depth 5'
+alias lttttt='elsd --tree -a --depth 6'
 # - LSD Sort by last-modified (newest on bottom)
 alias lmod='elsd -latr'
 # - LSD Sort by file extension
 alias lext='elsd -lX'
+
 
 # =========
 # GITIGNORE
@@ -198,7 +170,7 @@ function gitpick() {
 # =====
 export VIVID_THEME='molokai'
 export LS_COLORS="$(vivid generate $VIVID_THEME)"
-alias __ls=ls
+alias __ls=/bin/ls
 alias ls='gls --color'
 
 
@@ -209,23 +181,6 @@ alias ls='gls --color'
 # Would be cool to get this from vivid direct
 export JANK_BORDER_ACTIVE='00ff87'
 
-
-# =======
-# ALIASES/FUNCS
-# =============
-server () {
-	python3 -m http.server 8080
-}
-
-reload () {
-	echo "Reloading zsh..."
-	source "$ZDOTDIR/.zshrc"
-}
-
-
-function appId {
-    osascript -e "id of app \"$1\""
-}
 
 
 # ============
@@ -249,6 +204,7 @@ function fzv {
 # YABAI - WINDOW TILES 
 # ====================
 alias ya='yabai -m'
+alias yaq='yabai -m query'
 
 
 # ========================
@@ -280,4 +236,48 @@ case ":$PATH:" in
 esac
 alias pn=pnpm
 alias pnx='pnpm dlx'
-# pnpm end
+
+
+# =============
+# ALIASES/FUNCS
+# =============
+source $ZDOTDIR/notify.sh
+source $ZDOTDIR/iterm.sh
+
+function server {
+	python3 -m http.server 8080
+}
+
+function reload {
+	echo "Reloading zsh..."
+	source "$ZDOTDIR/.zshrc"
+}
+
+function appId {
+    osascript -e "id of app \"$1\""
+}
+
+function split-line() {
+  sed "s/\s\//\n\//g"
+}
+
+function split-on() {
+  splt="${1:-\n}"
+  sed "s/\\$splt/\n/g"
+  # sed $pattern
+}
+
+# Troubleshooting - https://github.com/ajeetdsouza/zoxide/issues/336
+autoload -Uz compinit
+compinit -i
+eval "$(zoxide init zsh)"
+
+export CHEAT_CONFIG_PATH="~/dotfiles/config/cheat/conf.yml"
+
+# Required to cache formula and cask descriptions.
+export HOMEBREW_EVAL_ALL="true"
+
+
+
+
+

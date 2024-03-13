@@ -1,11 +1,19 @@
 
+
+BLACKLIST=(
+	ChatGPT
+)
+
 options=(
+	blacklist=$BLACKLIST
 	style=round
 	width=6.0
 	hidpi=on
 	active_color=0xff00ff87
 	inactive_color=0xff414550
 )
+
+echo "${options[@]}"
 
 borders "${options[@]}"
 

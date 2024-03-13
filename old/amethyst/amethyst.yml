@@ -1,0 +1,335 @@
+# Default settings for amethyst Repo: `https://github.com/ianyh/Amethyst`
+
+defintions:
+  screen-padding: $screen-p 10
+  null_shortcut: &null_shortcut
+    key: <NONE>
+    mod: <NONE>
+
+# ================
+# GENERAL SETTINGS
+# ================
+
+debug-layout-info: true
+disable-padding-on-builtin-display: false
+ignore-menu-bar: false
+restore-layouts-on-launch: true
+new-windows-to-main: false
+float-small-windows: true
+follow-space-thrown-windows: false
+
+# HUD Settings
+# ------------
+
+# Show popup on layout change
+enables-layout-hud: true
+# Show popup when changing spaces
+enables-layout-hud-on-space-change: false
+
+# Mouse settings
+# --------------
+
+# Change focus to window under mouse when moving mouse around
+focus-follows-mouse: false
+# Reposition mouse to center of active window on focus change
+mouse-follows-focus: false
+# If false, window will snap back to layout position on resize
+mouse-resizes-windows: true
+# Tiling will reorder to accomodate manually moved windows
+mouse-swaps-windows: false
+
+# Screen Padding (in addition to margins per-window)
+
+screen-padding-bottom: $screen-p
+screen-padding-left: $screen-p
+screen-padding-right: $screen-p
+screen-padding-top: $screen-p
+
+# Window Settings
+
+smart-window-margins: false
+window-margin-size: 12
+window-margins: true
+window-max-count: 0
+window-minimum-height: 0
+window-minimum-width: 0
+window-resize-step: 5
+
+
+# ==========
+# FLOAT APPS
+# ==========
+
+floating-is-blacklist: true
+
+# Float these apps (unmanaged apps); List can be inverted with `floating-is-bloacklist`
+floating:
+  - com.apple.Finder
+  - com.apple.finder
+  - com.apple.Home
+  - com.apple.shortcuts
+  - com.apple.podcasts
+  - com.apple.iBooksX
+  - com.apple.MobileSMS
+  - com.apple.ActivityMonitor
+  - com.apple.systempreferences
+  - com.spotify.client
+  - com.runningwithcrayons.Alfred
+  - com.runningwithcrayons.Alfred-Preferences
+  - com.IdeaPunch.ColorSlurp
+  - com.nordvpn.macos
+  - com.utmapp.UTM
+  - org.pqrs.Karabiner-Elements.Settings
+  - org.pqrs.Karabiner-EventViewer
+
+    
+# layouts - Ordered list of layouts to use by layout key (default tall, wide,
+# fullscreen, and column).
+layouts:
+  - tall
+  - fullscreen
+  - column
+  - bsp
+  # - widescreen-tall
+  # - row
+  # - tall-right
+  # - wide
+  # - two-pane
+  # - middle-wide
+  # - 3column-left
+  # - 3column-middle
+  # - 3column-right
+  # - 4column-left
+  # - 4column-right
+  # - floating
+  # - widescreen-tall-right
+
+
+# ============
+# KEY-BINDINGS
+# ============
+
+# mod1 = option + shift
+# mod2 = option + control + shift
+# Commands: special key values space enter up right down left
+# special characters require quotes '.' & ','
+
+mod1:
+  - option
+  - shift
+
+mod2:
+  - option
+  - shift
+  - control
+
+# =====================
+# CYCLE SELECTED LAYOUT 
+# =====================
+ 
+cycle-layout:
+  mod: mod1
+  key: space
+
+cycle-layout-backward:
+  mod: mod2
+  key: space
+
+# ===================
+# RESIZE "MAIN" GROUP
+# ===================
+
+shrink-main:
+  mod: mod1
+  key: h
+
+expand-main:
+  mod: mod1
+  key: l
+
+# ==========================
+# PUSH/POP INTO "MAIN" GROUP
+# ==========================
+
+# Push first of the 'rest' windows into 'main' group 
+increase-main:
+  mod: mod1
+  key: ','
+
+# Pop last of the 'main' group into 'rest' group 
+decrease-main:
+  mod: mod1
+  key: '.'
+
+# ============
+# CHANGE FOCUS 
+# ============
+
+# Focus the next window in the list going counter-clockwise.
+focus-ccw:
+  mod: mod1
+  key: j
+
+# Focus the next window in the list going clockwise.
+focus-cw:
+  mod: mod1
+  key: k
+
+# Focus the main window in the list.
+focus-main:
+  mod: mod1
+  key: m
+
+# Focus the next screen in the list going counter-clockwise.
+focus-screen-ccw:
+  mod: mod1
+  key: p
+
+# Focus the next screen in the list going clockwise.
+focus-screen-cw:
+  mod: mod1
+  key: n
+
+
+# ====================
+# MOVE 'ACTIVE' WINDOW 
+# ====================
+
+# Move ACTIVE to next screen 
+swap-screen-ccw:
+  mod: mod2
+  key: right
+
+# Move ACTIVE to previous screen 
+swap-screen-cw:
+  mod: mod2
+  key: left
+
+# Swap ACTIVE with next window 
+swap-ccw:
+  mod: mod2
+  key: j
+
+# Swap ACTIVE with previous window 
+swap-cw:
+  mod: mod2
+  key: k
+
+# Swap ACTIVE with the main window 
+swap-main:
+  mod: mod1
+  key: enter
+
+# ========================
+# MOVE 'ACTIVE' TO SPACE N
+# ========================
+
+# Move ACTIVE to next space
+throw-space-right:
+  mod: mod2
+  key: l
+
+# Move ACTIVE to previous space
+throw-space-left:
+  mod: mod2
+  key: h
+
+# throw-space-1: *null_shortcut
+# throw-space-1:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-2:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-3:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-4:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-5:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-6:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-7:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-8:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-9:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# throw-space-10:
+#   mod: <NONE>
+#   key: <NONE>
+
+# ======================
+# SELECT SPECIFIC LAYOUT
+# ======================
+
+# Select tall layout
+# select-tall-layout:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# # Select wide layout
+# select-wide-layout:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# # Select fullscreen layout
+# select-fullscreen-layout:
+#   mod: <NONE>
+#   key: <NONE>
+#
+# # Select column layout
+# select-column-layout:
+#   mod: <NONE>
+#   key: <NONE>
+
+# ======================
+# TOGGLES, INFO, REFRESH
+# ======================
+
+# Toggle the floating state of ACTIVE (managed -> unmanaged and vice-versa)
+# toggle-float:
+#   mod: <NONE>
+#   key: <NONE>
+
+# Display the layout HUD with the current layout on each screen.
+# display-current-layout:
+#   mod: <NONE>
+#   key: <NONE>
+
+# Turn on or off tiling entirely.
+# toggle-tiling:
+#   mod: <NONE>
+#   key: <NONE>
+
+# Rerun the current layout's algorithm.
+reevaluate-windows:
+  mod: mod1
+  key: z
+
+# Turn on or off focus-follows-mouse.
+toggle-focus-follows-mouse:
+  mod: mod2
+  key: x
+
+# Automatically quit and reopen Amethyst.
+relaunch-amethyst:
+  mod: mod2
+  key: z
+

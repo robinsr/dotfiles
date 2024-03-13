@@ -5,3 +5,7 @@ export PATH="$PATH:/Users/ryan/Library/Application Support/JetBrains/Toolbox/scr
 # Adds Sublime Text executable to path
 export PATH="$PATH:Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
+source ~/.config/yabai/yabai.sh
+
+
+export STARTUP_FILES="dotfiles/zsh/.zprofile:$STARTUP_FILES"

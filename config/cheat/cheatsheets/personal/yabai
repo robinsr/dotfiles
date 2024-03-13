@@ -1,0 +1,4 @@
+# Yabai - The Tiling Window Manager for macOS
+
+# List spaces
+yabai -m query --spaces

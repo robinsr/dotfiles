@@ -1,0 +1,22 @@
+# Display a single file on the terminal:
+bat <file>
+
+# Display multiple files at once:
+bat <file> <file>
+
+# Show and highlight non-printable characters:
+bat -A <file>
+
+# Display all supported languages:
+bat --list-languages
+
+# Set the language for syntax highlighting:
+bat --language <language> <file.<language extension>>
+echo <file> | bat -l <language>
+
+# Colorize help commands (`-h`, `--help`) with bat
+cheat -h | bat -l help
+cheat --help | bat --language (cmd-help|help)
+
+
+
