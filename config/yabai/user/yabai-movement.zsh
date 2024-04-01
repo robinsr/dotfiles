@@ -1,17 +1,31 @@
 #!/usr/bin/env zsh
 
 source $HOME/.config/yabai/user/yabai-query.zsh
+source $HOME/.config/yabai/user/log.zsh
 
 ya_cycle_layout () {
-  layouts=(bsp stack float)
-  current=$(ya_get_layout)
-  next='bsp'
+  # Consider what order the layouts should be cycled in:
+  #
+  #   - When cycling stack -> float, windows stay in 'stack' mode until
+  #     manually resized, eg full-size windows
+  # 
+  #   - When cycling bsp -> float, windows are already arranged by the 'bsp'
+  #     algorithm. For me this makes more sense as I am usually switching to
+  #     float mode to have more control over multi-window tiling, and
+  #     starting from the previous stack mode means I have to resize multiple
+  #     full-size windows
+  #
+  layouts=(bsp float stack)
 
-  echo current is $current
+  # Get the currently applied layout
+  current=$(ya_get_layout)
+
+  # Next layout to be applied. Needs to start as the first 
+  next=$layouts[1]
+  __ya_log "layouts[1]: '$next'"
+
 
   for ((i = 1; i <= $#layouts; i++)); do
-    echo "Index: $i, value: ${layouts[i]}"
-
     if [[ $layouts[i] == $current ]]; then
       if (( i != 3 )); then
         next=$layouts[i+1]
@@ -19,14 +33,17 @@ ya_cycle_layout () {
     fi
   done
 
+  __ya_log "Changing layout from '$current' to '$next'"
+
   yabai -m space --layout $next
-  
+
   ya_notify "Layout changed to $next"
-  
+
   if [[ -n "${commands[sketchybar]}" ]]; then
-    sketchybar --trigger yalayoutchange YA_SPACE_ID=$(ya_get_active 'space-num') YA_LAYOUT=$next
+    sketchybar --trigger ya_layout_change YA_SPACE_ID=$(ya_get_active 'space-num') YA_LAYOUT=$next
   fi
-  
+
+  # Still need this?
   echo $next
 }
 

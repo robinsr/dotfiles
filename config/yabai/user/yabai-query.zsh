@@ -10,7 +10,7 @@ ya_get_rules () {
 
 ya_get_layout () {
   # 'mouse' I assume means the space with pointer
-  yabai -m config --space "${1:-mouse}" layout 
+  yabai -m config --space "${1:-mouse}" layout
 }
 
 ya_get_display_count () {
@@ -32,9 +32,6 @@ ya_get_display_count () {
 # yabai -m query --windows | jq '.[] | {id,app,title,role,subrole}'
 
 ya_get_active () {
-  depth=$(($2 * 1))
-
-
   case $1 in
     'window') yabai -m query --windows --window | jq '.';
     ;;
@@ -47,6 +44,8 @@ ya_get_active () {
     'space-id') yabai -m query --spaces --space | jq '.id'
     ;;
     'space-num') yabai -m query --spaces --space | jq '.index'
+    ;;
+    'recent-space-num') yabai -m query --spaces --space recent | jq '.index'
     ;;
     'space-layout') yabai -m query --spaces --space | jq -r '.type'
     ;;
