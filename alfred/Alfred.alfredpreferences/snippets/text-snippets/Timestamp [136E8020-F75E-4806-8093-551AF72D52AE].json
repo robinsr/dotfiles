@@ -1,9 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "{date:yyyy-MM-dd HH:mm:ss}",
-    "dontautoexpand" : true,
-    "uid" : "136E8020-F75E-4806-8093-551AF72D52AE",
-    "name" : "Timestamp",
-    "keyword" : "time"
-  }
-}

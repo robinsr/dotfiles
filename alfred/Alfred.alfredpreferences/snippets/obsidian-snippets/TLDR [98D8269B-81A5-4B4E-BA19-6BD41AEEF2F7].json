@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "> [!tldr] tl;dr: {cursor}\n> Aint nobody got time for that!",
-    "uid" : "98D8269B-81A5-4B4E-BA19-6BD41AEEF2F7",
-    "name" : "TL;DR",
-    "keyword" : "tldr"
-  }
-}

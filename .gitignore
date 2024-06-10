@@ -8,3 +8,4 @@ config/zsh/oh-my-zsh/
 .zcompdump*
 .zsh_history
 
+alfred/Alfred.alfredpreferences/

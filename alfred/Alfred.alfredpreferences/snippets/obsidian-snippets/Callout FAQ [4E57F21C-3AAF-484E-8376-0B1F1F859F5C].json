@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "> [!faq] Did you know?\n> {cursor}",
-    "uid" : "4E57F21C-3AAF-484E-8376-0B1F1F859F5C",
-    "name" : "Callout FAQ",
-    "keyword" : "faq"
-  }
-}

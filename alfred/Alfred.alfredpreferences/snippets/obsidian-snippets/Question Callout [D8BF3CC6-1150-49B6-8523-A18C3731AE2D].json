@@ -1,8 +1,0 @@
-{
-  "alfredsnippet" : {
-    "snippet" : "> [!question] {cursor}\n> todo...",
-    "uid" : "D8BF3CC6-1150-49B6-8523-A18C3731AE2D",
-    "name" : "Question Callout",
-    "keyword" : "q?"
-  }
-}
