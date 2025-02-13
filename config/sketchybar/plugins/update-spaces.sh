@@ -1,55 +1,79 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
-source "$HOME/.config/sketchybar/icons.sh"
-source "$HOME/.config/sketchybar/colors.sh"
+source $HOME/.config/sketchybar/icons.sh
+source $HOME/.config/sketchybar/colors.sh
+source $HOME/.config/yabai/user/yabai-query.zsh
+
+echo "$$; update-spaces - (#$SENDER.$NAME) - selected: \"$SELECTED\"; info: $(echo $INFO | jq -c .)"
+
+function get_layout_icon {
+  case $1 in
+    'bsp') echo $GIT_INDICATOR;
+    ;;
+    'stack') echo $GIT_INDICATOR;
+    ;;
+    'float') echo $GIT_INDICATOR;
+    ;;
+    *) echo ''
+  esac
+}
 
 # Update space's window count
 if [[ "$SENDER" == 'space_change' ]]; then
+  echo "$$;  - space_change: setting background of \"$NAME\" to \"$SELECTED\""
 	sketchybar --set "$NAME" background.drawing="$SELECTED"
 	exit 0
 fi
 
 # Update space's window count
-if [[ "$SENDER" == 'space_windows_change' ]]; then
-	sid=${NAME//space\./}
-	space="$(yabai -m query --spaces --space $((sid)))"
-	label="$(echo $space | jq -r '.label')"
-	type="$(echo $space | jq -r '.type')"
-	qty="$(yabai -m query --windows --space $((sid)) | jq -r 'length')"
+if [[ "$SENDER" == 'space_windows_change' && "$NAME" == 'spaces' ]]; then
+  # Extract the affected space id and the number of windows from $INFO
+	sid=$(echo $INFO | jq '.space')
+	qty="$(echo $INFO | jq '.apps|to_entries|reduce .[].value as $i (0; . + $i) ')"
 
-	case ${YA_LAYOUT:-$type} in
-		'bsp') icon=$YABAI_GRID;
-		;;
-		'stack') icon=$YABAI_STACK;
-		;;
-		'float') icon=$YABAI_FLOAT;
-		;;
-		*) icon=''
-	esac
+	# Query yabai for the space's configuration; extracting the label and type
+	ya_query="$(ya_query_cache --spaces --space $sid)"
+	label="$(echo $ya_query | jq -r '.label')"
+	type="$(echo $ya_query | jq -r '.type')"
+	icon="$(get_layout_icon $type)"
+	label="$icon $qty"
 
-	sketchybar --set "$NAME" label="$icon $qty"
+	echo "$$;  - space_windows_change: setting 'label' of \"space.$sid\" to \"$label\""
+
+	sketchybar --set "space.$sid" label="$label"
 	exit 0
 fi
 
-# Update space's layout icon
-if [[ "$SENDER" == 'yalayoutchange' ]]; then
-	qty="$(yabai -m query --windows --space $((YA_SPACE_ID)) | jq -r 'length')"
 
-	case ${YA_LAYOUT} in
-		'bsp') icon=$YABAI_GRID;
-		;;
-		'stack') icon=$YABAI_STACK;
-		;;
-		'float') icon=$YABAI_FLOAT;
-		;;
-		*) icon=''
-	esac
+function handle_window_count_change {
+  space=$1
+  qty=$(ya_query_cache --windows --space $space | jq -r 'length')
+  layout=$(ya_get_layout $space)
+  icon="$(get_layout_icon $layout)"
+  label="$icon $qty"
 
-	sketchybar --set "space.$YA_SPACE_ID" label="$icon $qty"
-	exit 0
+  echo "$$;  - $SENDER: setting 'label' of \"space.$space\" to \"$label\""
+
+  sketchybar --set "space.$space" label="$label"
+}
+
+if [[ "$SENDER" == 'ya_window_create' ]]; then
+  window=$(echo $INFO | jq -r '.window')
+  space=$(ya_query_cache --windows --window $window | jq -r '.space')
+  handle_window_count_change $space
+  exit 0
 fi
 
-# Update space's name (icon)
-if [[ "$SENDER" == 'yanewlabel' ]]; then
-	sketchybar --set "space.$YA_SPACE_ID" icon="$YA_LABEL"
+if [[ "$SENDER" == 'ya_window_destroy' ]]; then
+  # Use the currently active space on window destroy (since the window is no longer available to query)
+  space=$(ya_get_active 'space-num')
+  handle_window_count_change $space
+  exit 0
+fi
+
+if [[ "$SENDER" == 'ya_window_moved' ]]; then
+  # Use the currently active space, and the recently active space on window moved
+  handle_window_count_change $(ya_get_active 'space-num')
+  handle_window_count_change $(ya_get_active 'recent-space-num')
+  exit 0
 fi

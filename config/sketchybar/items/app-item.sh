@@ -5,4 +5,4 @@ app_props=(
 
 sketchybar --add item front_app left \
            --set front_app ${app_props[@]} \
-           --subscribe front_app front_app_switched ya-window-event
+           --subscribe front_app front_app_switched

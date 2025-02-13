@@ -1,0 +1,8 @@
+---
+syntax: bash
+tags: [ homebrew ]
+---
+# Make a brewfile in current dir
+brew bundle dump
+
+

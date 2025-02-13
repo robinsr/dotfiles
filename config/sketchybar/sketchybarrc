@@ -1,6 +1,6 @@
 #!/bin/sh
 
-eval "$HOME/.config/yabai/yabai.sh"
+# eval "$HOME/.config/yabai/yabai.sh"
 source "$HOME/.config/sketchybar/colors.sh"
 source "$HOME/.config/sketchybar/icons.sh"
 source "$HOME/.config/sketchybar/config.zsh"
@@ -8,15 +8,20 @@ source "$HOME/.config/sketchybar/config.zsh"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 ITEM_DIR="$HOME/.config/sketchybar/items"
 
+source "$ITEM_DIR/alias-item.sh"
+
 sk_add_item () {
   sketchybar --add item clock right \
              --set clock update_freq=10 icon=$APPLE script="$PLUGIN_DIR/clock.sh"
 }
 
 
-sketchybar --add event ya-window-event
-sketchybar --add event yalayoutchange
-sketchybar --add event yanewlabel
+sketchybar --add event ya_layout_change \
+           --add event ya_new_label \
+           --add event ya_window_create \
+           --add event ya_window_destroy \
+           --add event ya_window_moved \
+
 
 NOTCH=(
   notch_width=200
@@ -28,7 +33,7 @@ NOTCH=(
 BAR_DOCKED=(
   position=bottom
   y_offset=0
-  height=32
+  height=36
   margin=0
   blur_radius=0
   color=$(set_alpha $BAR_COLOR 90)
@@ -36,7 +41,7 @@ BAR_DOCKED=(
   border_width=0
   shadow=off
   display=all
-  topmost=on
+  topmost=window
 )
 
 BAR_FLOATING=(
@@ -59,37 +64,64 @@ sketchybar --bar "${BAR_DOCKED[@]}"
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
-default=(
+default_pad_md=(
   padding_left=5
   padding_right=5
-  icon.font="$FONT:Bold:14.0"
-  label.font="$FONT:SemiBold:13.0"
-  icon.color=$ICON_COLOR
-  label.color=$ICON_COLOR
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
   label.padding_right=4
 )
 
-sketchybar --default "${default[@]}"
+default_pad_none=(
+  padding_left=0
+  padding_right=0
+  icon.padding_left=0
+  icon.padding_right=0
+  label.padding_left=0
+  label.padding_right=0
+)
 
-# -- Items Right --
+font_default=(
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$ICON_COLOR
+  label.font="$FONT:SemiBold:13.0"
+  label.color=$ICON_COLOR
+)
+
+font_dark=(
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$MOON
+  label.font="$FONT:SemiBold:13.0"
+  label.color=$MOON
+)
+
+sketchybar --default "${font_default[@]} ${default_pad_md[@]}"
+
+# -- Items Left --
 source "$ITEM_DIR/spaces-item.sh"
 source "$ITEM_DIR/app-item.sh"
 
-zx ~/workspace/env/node-sketchybar/src/test-script.mjs --json '{"name":"dildo-item"}'
+# zx ~/workspace/env/node-sketchybar/src/test-script.mjs --json '{"todo":"make this work!"}'
 
 
 # sketchybar --add item hextest left \
 #            --set hextest label="$(set_alpha $RED 90)"
 
-# -- Items Left --
+# -- Items Right --
 source "$ITEM_DIR/clock-item.sh"
 source "$ITEM_DIR/battery-item.sh"
 source "$ITEM_DIR/volume-item.sh"
-source "$ITEM_DIR/dropdown-item.sh"
 
+sketchybar --default "${font_dark[@]} ${default_pad_none[@]}"
+
+add_stat memstat "Stats,RAM" "􀫦MEM"
+add_stat gpustat "Stats,GPU" "􀫥GPU"
+add_stat cpustat "Stats,CPU" "􀫥CPU"
+
+sketchybar --default "${font_default[@]} ${default_pad_md[@]}"
+
+# source "$ITEM_DIR/dropdown-item.sh"
 # source $PLUGIN_DIR/cpu.sh
 
 sketchybar --hotload on

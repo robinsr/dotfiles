@@ -1,13 +1,10 @@
+source $HOME/.config/shared/conf.sh
 
-
-BLACKLIST=(
-	ChatGPT
-)
 
 options=(
-	blacklist=$BLACKLIST
+	blacklist="ChatGPT,Hammerspoon"
 	style=round
-	width=6.0
+	width=$BORDERS_WIDTH
 	hidpi=on
 	active_color=0xff00ff87
 	inactive_color=0xff414550
@@ -16,4 +13,3 @@ options=(
 echo "${options[@]}"
 
 borders "${options[@]}"
-

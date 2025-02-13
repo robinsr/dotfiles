@@ -1,0 +1,95 @@
+# ==============
+# Within a space
+# ==============
+
+# Change focus (Direction arrows)
+meh - up : yabai -m window --focus north
+meh - down : yabai -m window --focus south
+meh - right : yabai -m window --focus east
+meh - left : yabai -m window --focus west
+
+# Change focus (Vim up/down)
+# shift + alt - j : ya_cycle_focus_cw
+# shift + alt - k : ya_cycle_focus_ccw
+
+# Cycle window positions (Vim up/down)
+# meh - j : ya_cycle_pos_cw
+# meh - k : ya_cycle_pos_ccw
+
+# R - rotate layout clockwise
+# shift + alt - r : yabai -m space --rotate 90
+
+# M - maximize active window
+shift + alt - m : yabai -m window --toggle zoom-fullscreen
+
+# Space - cycle the layout type
+shift + alt - space : ya_cycle_layout
+
+# E - reEvaluate (balance) out tree of windows (resize to occupy same area)
+shift + alt - e : yabai -m space --balance
+
+# Y - flip along y_axis
+# shift + alt - y : yabai -m space --mirror y-axis
+
+# X - flip along x_axis
+# shift + alt - x : yabai -m space --mirror x-axis
+
+# T - toggle window float
+# shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+
+# ==============
+# Between spaces
+# ==============
+
+# Change focus (Vim left/right)
+# shift + alt - l : ya_exec 'space-right' 'yabai -m space mouse --focus next'
+# shift + alt - h : ya_exec 'space-left' 'yabai -m space mouse --focus prev'
+
+# Change focus (Arrow left/right)
+ctrl - right : ya_exec 'space-right' 'yabai -m space mouse --focus next'
+ctrl - left  : ya_exec 'space-left' 'yabai -m space mouse --focus prev'
+
+# Throw window to next/prev (Vim left/right)
+meh - l : ya_throw_next_space
+meh - h : ya_throw_prev_space
+
+
+# ================
+# Between displays
+# ================
+
+# Change screen focus
+# open-bracket
+# shift + alt - 0x21 : yabai -m display --focus west
+# close-bracket
+# shift + alt - 0x1E : yabai -m display --focus east
+
+# Throw window
+# meh - 0x21 : ya_throw_display_west
+# meh - 0x1E : ya_throw_display_east
+
+
+# ============================
+# Swapping and warping windows
+# ============================
+
+# swap windows
+# shift + ctrl - w : yabai -m window --swap north
+# shift + ctrl - s : yabai -m window --swap south
+# shift + ctrl - d : yabai -m window --swap east
+# shift + ctrl - a : yabai -m window --swap west
+
+# move window and split
+# ctrl + alt - w : yabai -m window --warp north
+# ctrl + alt - s : yabai -m window --warp south
+# ctrl + alt - d : yabai -m window --warp east
+# ctrl + alt - a : yabai -m window --warp west
+
+
+# ======
+# Resets
+# ======
+
+# Z - Restart yabai
+meh - z : ya_restart

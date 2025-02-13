@@ -1,0 +1,9 @@
+---
+syntax: bash
+tags: [ mac, osa ]
+---
+
+# Get  bundle ID for an GUI application
+osascript -e 'id of app "Finder"'
+
+

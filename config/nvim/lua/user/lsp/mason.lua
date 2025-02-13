@@ -7,6 +7,7 @@ local servers = {
   "volar",
   "tailwindcss",
   "gopls",
+  "bashls",
 }
 
 local settings = {

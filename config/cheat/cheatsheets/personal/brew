@@ -1,8 +1,13 @@
 ---
-syntax: bash
-tags: [ mac, deps ]
+syntax: markdown
+tags: [ mac, deps, homebrew, env ]
 ---
-# Manpage: https://github.com/Homebrew/brew/blob/master/docs/Manpage.md
+Manpage: https://github.com/Homebrew/brew/blob/master/docs/Manpage.md
+
+# List available brew commands
+
+brew commands
+brew help <command>
 
 # Update
 brew update
@@ -25,6 +30,9 @@ brew uninstall <formula>
 # List installed formulae
 brew list
 
+# List casks/formulas with new versions available
+brew outdated
+
 # Fix
 brew doctor
 
@@ -41,5 +49,4 @@ brew desc -s <term> --eval-all
 brew desc -n <term> --eval-all
 #    - Search just descritpions
 brew desc -d <term> --eval-all
-
 

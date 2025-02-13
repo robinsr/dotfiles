@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 function my-term-color() {
   # Alizarin Crimson*
   red=(224, 49, 49)
@@ -21,7 +23,7 @@ function my-term-color() {
   magenta=(174, 62, 201)
 
   local rbg
-  
+
   [[ $1 = 'red' ]] && iterm2_tab_color $red
   [[ $1 = 'orange' ]] && iterm2_tab_color $orange
   [[ $1 = 'yellow' ]] && iterm2_tab_color $yellow

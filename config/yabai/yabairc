@@ -4,6 +4,7 @@
 
 # source "$HOME/.config/zsh/notify.sh"
 source "$HOME/.config/yabai/yabai.sh"
+source "$HOME/.config/scripts/json.zsh"
 
 # Enable apple scripting addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
@@ -13,119 +14,201 @@ sudo yabai --load-sa
 yabai -m config debug_output off
 
 # Default layout (bsp, stack, float) ('float' effectively disables yabai's tile management)
-yabai -m config layout bsp
+# yabai -m config layout $(ya_suggest layout)
+yabai -m config layout float
 
-# Insert new windows 
-yabai -m config window_placement first_child
+# Insert new windows
+yabai -m config window_placement second_child
 
 # Leave room for sketchybar
-yabai -m config external_bar all:$YABAI_BAR_TOP:$YABAI_BAR_BOTTOM
+yabai -m config external_bar all:\$YABAI_BAR_TOP:\$YABAI_BAR_BOTTOM
+
+# New windows are not as important as previously opened
+yabai -m config auto_balance off
+yabai -m config split_ratio 0.62
 
 # ===============
 # Window Settings
 # ===============
 
 # Disable changing window opacity (change to 'on')
-yabai -m config window_opacity off
-yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.9
-yabai -m config window_animation_duration 0.2
+# yabai -m config window_opacity off
+# yabai -m config active_window_opacity 1.0
+# yabai -m config normal_window_opacity 0.9
+yabai -m config window_animation_duration 0.3
 yabai -m config window_animation_easing ease_in_out_quint
 
-# Add 12px padding for managed windows 
-yabai -m config top_padding 12
-yabai -m config bottom_padding 12
-yabai -m config left_padding 10
-yabai -m config right_padding 10
-yabai -m config window_gap 12
+# Get suggestions for padding values
+PAD_X=$(ya_suggest padding-x)
+PAD_Y=$(ya_suggest padding-y)
+yabai -m config top_padding $PAD_Y
+yabai -m config bottom_padding $PAD_Y
+yabai -m config left_padding $PAD_X
+yabai -m config right_padding $PAD_X
+yabai -m config window_gap $(ya_suggest gap)
 
 # ==============
 # MOUSE SETTINGS
 # ==============
 
-# Center mouse on window with focus
+# Center mouse on window with focus [on|off]
 yabai -m config mouse_follows_focus off
 
+
+# Center mouse on window with focus [autofocus|autoraise|off]
+yabai -m config focus_follows_mouse off
+
 # Modifier for clicking and dragging with mouse
-yabai -m config mouse_modifier alt
+# yabai -m config mouse_modifier alt
 
 # Set modifier + LEFT-click drag to move window
-yabai -m config mouse_action1 move
+# yabai -m config mouse_action1 move
 
 # Set modifier + RIGHT-click drag to resize window
-yabai -m config mouse_action2 resize
+# yabai -m config mouse_action2 resize
 
-# When window is dropped in center of another window, swap them 
+# When window is dropped in center of another window, swap them
 # (on edges it will split it). Options: swap|stack
 yabai -m config mouse_drop_action swap
 
+# Disable managing all apps and opt in
+# yabai -m rule --add app="^.*$" manage=off
+# yabai -m rule --add app="^Sublime Text$" manage=on
+
 # # disable specific apps
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-.*$" manage=off
-yabai -m rule --add app="^Home$" manage=off
-yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^Alfred.*$" manage=off
+yabai -m rule --add app="^Boop$" manage=off
+yabai -m rule --add app="^Bartender 5$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^ColorSlurp$" manage=off
+yabai -m rule --add app="^Home$" manage=off
+yabai -m rule --add app="^Karabiner-.*$" manage=off
+yabai -m rule --add app="^Keychron Engine$" manage=off
+yabai -m rule --add app="^Logi Options\+$" manage=off
+yabai -m rule --add app="^Mac Mouse Fix$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Screen Sharing$" manage=off
 yabai -m rule --add app="^Shortcuts$" manage=off
+yabai -m rule --add app="^Spotify$" manage=on
+yabai -m rule --add app="^Steer[Mm]ouse$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off label=ks:systemsettings
 yabai -m rule --add app="^UTM$" manage=off
-# yabai -m rule --add app="^Spotify$" manage=off
+
+
+# Apps in Development
+yabai -m rule --add app="^TaggedFileBrowser$" manage=off
+
+# Ignore QSpace prefs panel
+yabai -m rule --add app="^QSpace Pro$" title="^QSpace Preferences$" manage=off
+yabai -m rule --add title="^.*Preferences$" manage=off
+
+yabai -m rule --add title="^.*Hammerspoon$" manage=on
+
+# Finder's "Info" windows
+yabai -m rule --add app="^Finder$" title="^.*Info$" manage=off
+# Finder's 'file already exists' dialog
+yabai -m rule --add app="^Finder$" title="^Copy$" manage=off
+
+# QSpace's various sub-windows
+yabai -m rule --add app="^QSpace Pro$" title="^Batch Rename$" manage=off
+yabai -m rule --add app="^QSpace Pro$" subrole="^Quick Look$" manage=on grid=1:1:0:0:1:1
+
+yabai -m rule --add app="^LuLu$" manage=off
+
+# Browsers (Brave at least) title PIP windows as "...Video playing in picture-in-picture mode..."
+yabai -m rule --add title="playing in picture-in-picture mode" manage=off
+
+# Apps I prefer to stay on top
+yabai -m rule --add app="^OrangeCard$" sticky=on layer=above manage=off
+
+
 
 # Webstorm project windows use the title format of...
 #      "project-name [~/path/to/project-dir] – …/current/file.ext"
 # Tool windows typically use one or more word titles
 # yabai -m rule --add app="^WebStorm$" title="^([\w]+\s?)+$" manage=off
-yabai -m rule --add label="WebstormDialogs" app="^WebStorm$" title="^(Settings|Move|Rename|[\w\s]*)$" manage=off
+yabai -m rule --add app="^WebStorm$" title="^(Settings|Move|Rename|[\w\s]*)$" manage=off label="WebstormDialogs"
+
+yabai -m signal --add event=display_removed \
+  action="yabai -m config top_padding 0 bottom_padding 0 right_padding 0 left_padding 0 gap 0"
+
+yabai -m signal --add event=display_added \
+  action="yabai -m config top_padding 10 bottom_padding 10 right_padding 10 left_padding 10 gap 12"
 
 
-# ------
-# Events
-# ------
+# {
+#   "bundleID": "com.desklampx.orangecard",
+#   "name": "OrangeCard",
+#   "path": "/Applications/OrangeCard.app",
+#   "pid": 11791,
+#   "title": "OrangeCard",
+#   "windows": [
+#     {
+#       "title": "OrangeCard",
+#       "frame": {
+#         "_y": 299,
+#         "_x": 654,
+#         "_w": 420,
+#         "_h": 540
+#       },
+#       "isMinimized": false,
+#       "isMaximizable": true,
+#       "id": 62464,
+#       "subrole": "AXDialog",
+#       "isFullScreen": false,
+#       "isStandard": false,
+#       "role": "AXWindow",
+#       "isVisible": true
+#     }
+#   ]
+# }
+# {
+#   "app": {
+#     "title": "QSpace Pro",
+#     "pid": 15982,
+#     "name": "QSpace Pro",
+#     "path": "/Applications/QSpace Pro.app",
+#     "bundleID": "com.jinghaoshe.qspace.pro"
+#   },
+#   "frame": {
+#     "_w": 1693,
+#     "_x": 17,
+#     "_h": 1057,
+#     "_y": 48
+#   },
+#   "id": 139559,
+#   "isFullScreen": false,
+#   "isMaximizable": true,
+#   "isMinimized": false,
+#   "isStandard": false,
+#   "isVisible": true,
+#   "role": "AXWindow",
+#   "subrole": "Quick Look",
+#   "title": "Quick Look"
+# }
 
-# Reference:
-# application_launched   -  $YABAI_PROCESS_ID
-# application_terminated   -  $YABAI_PROCESS_ID
-# application_front_switched   -  $YABAI_PROCESS_ID $YABAI_RECENT_PROCESS_ID
-# application_activated   -  $YABAI_PROCESS_ID
-# application_deactivated   -  $YABAI_PROCESS_ID
-# application_visible   -  $YABAI_PROCESS_ID
-# application_hidden   -  $YABAI_PROCESS_ID
-# window_created   -  $YABAI_WINDOW_ID
-# window_destroyed   -  $YABAI_WINDOW_ID
-# window_focused   -  $YABAI_WINDOW_ID
-# window_moved   -  $YABAI_WINDOW_ID
-# window_resized   -  $YABAI_WINDOW_ID
-# window_minimized   -  $YABAI_WINDOW_ID
-# window_deminimized   -  $YABAI_WINDOW_ID
-# window_title_changed   -  $YABAI_WINDOW_ID
-# space_created   -  $YABAI_SPACE_ID
-# space_destroyed   -  $YABAI_SPACE_ID
-# space_changed   -  $YABAI_SPACE_ID $YABAI_RECENT_SPACE_ID
-# display_added   -  $YABAI_DISPLAY_ID
-# display_removed   -  $YABAI_DISPLAY_ID
-# display_moved   -  $YABAI_DISPLAY_ID
-# display_resized   -  $YABAI_DISPLAY_ID
-# display_changed   -  $YABAI_DISPLAY_ID $YABAI_RECENT_DISPLAY_ID
-# mission_control_enter   -  $YABAI_MISSION_CONTROL_MODE
-# mission_control_exit   -  $YABAI_MISSION_CONTROL_MODE
-# dock_did_change_pref
-# dock_did_restart
-# menu_bar_hidden_changed
-# system_woke
-
-
-# Trigger sketchybar on window focus change
-yabai -m signal --add event=window_focused action="sketchybar --update"
-yabai -m signal --add event=space_changed action="sketchybar --update"
-# yabai -m signal --add event=application_launched action="ya-notify $YABAI_PROCESS_ID"
-# yabai -m signal --add event=application_terminated action="ya-notify $YABAI_PROCESS_ID"
-
-# yabai -m signal --add event=mission_control_enter label=test-action \
-# 	action="echo \"\$(date '+%d/%m %I:%M:%S %p') - Running signal \"
-# 		source \"$HOME/.zshenv\"
-# 		numdisplay=\"\$(yabai -m query --displays | jq 'length')\"
-# 		if [[ numdisplay == '1' ]]; then sketcyhbar --set clock label=\"A\"; fi
-# 		if [[ numdisplay == '2' ]]; then sketchybar --set clock label=\"B\"; fi
-# 		"
-
-
+# {
+#   "app": {
+#     "title": "LuLu",
+#     "path": "/Applications/LuLu.app",
+#     "pid": 24571,
+#     "name": "LuLu",
+#     "bundleID": "com.objective-see.lulu.app"
+#   },
+#   "frame": {
+#     "_y": 38,
+#     "_x": 0,
+#     "_w": 600,
+#     "_h": 297
+#   },
+#   "id": 198511,
+#   "isFullScreen": false,
+#   "isMaximizable": false,
+#   "isMinimized": false,
+#   "isStandard": true,
+#   "isVisible": true,
+#   "role": "AXWindow",
+#   "subrole": "AXStandardWindow",
+#   "title": "LuLu's Settings"
+# }

@@ -1,0 +1,97 @@
+# ==============
+# Within a space
+# ==============
+
+# Change focus (Direction arrows)
+# default < meh - up : yabai -m window --focus north
+# default < meh - down : yabai -m window --focus south
+# default < meh - right : yabai -m window --focus east
+# default < meh - left : yabai -m window --focus west
+
+# Change focus (Vim up/down)
+# colemkd < shift + alt - n : ya_cycle_focus_cw
+# colemkd < shift + alt - e : ya_cycle_focus_ccw
+
+# Cycle window positions (Vim up/down)
+# colemkd < meh - n : ya_cycle_pos_cw
+# colemkd < meh - e : ya_cycle_pos_ccw
+
+# R (p) - rotate layout clockwise
+# colemkd < shift + alt - p : yabai -m space --rotate 90
+
+# M (v) - maximize active window
+# colemkd < shift + alt - v : yabai -m window --toggle zoom-fullscreen
+
+# Space - cycle the layout type
+# colemkd < shift + alt - space : ya_cycle_layout
+
+# E (f) - reEvaluate (balance) out tree of windows (resize to occupy same area)
+# colemkd < shift + alt - f : yabai -m space --balance
+
+# Y (j) - flip along y_axis
+# shift + alt - j : yabai -m space --mirror y-axis
+
+# X (c) - flip along x_axis
+# shift + alt - c : yabai -m space --mirror x-axis
+
+# T (b)- toggle window float
+# shift + alt - b : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+
+# ==============
+# Between spaces
+# ==============
+
+# Change focus (Vim left/right)
+
+
+# colemkd < shift + alt - i : ya_exec 'Change Space ➡️' 'yabai -m space --focus next'
+# colemkd < shift + alt - m : ya_exec 'Change Space ⬅️' 'yabai -m space --focus prev'
+
+# Change focus (Arrow left/right)
+
+
+# colemkd < ctrl - right : yabai -m space --focus next
+# colemkd < ctrl - left  : yabai -m space --focus prev
+
+# Throw window to next/prev (Vim left/right)
+# colemkd < meh - i : ya_throw_next_space
+# colemkd < meh - m : ya_throw_prev_space
+
+
+# ================
+# Between displays
+# ================
+
+# Change focus (bracket L/R)
+# colemkd < shift + alt - 0x21 : yabai -m display --focus west
+# colemkd < shift + alt - 0x1E : yabai -m display --focus east
+
+# Throw window
+# colemkd < meh - 0x21 : ya_throw_display_west
+# colemkd < meh - 0x1E : ya_throw_display_east
+
+
+# ============================
+# Swapping and warping windows
+# ============================
+
+# swap windows
+# colemkd < shift + ctrl - w : yabai -m window --swap north
+# colemkd < shift + ctrl - r : yabai -m window --swap south
+# colemkd < shift + ctrl - s : yabai -m window --swap east
+# colemkd < shift + ctrl - a : yabai -m window --swap west
+
+# move window and split
+# colemkd < ctrl + alt - w : yabai -m window --warp north
+# colemkd < ctrl + alt - r : yabai -m window --warp south
+# colemkd < ctrl + alt - s : yabai -m window --warp east
+# colemkd < ctrl + alt - a : yabai -m window --warp west
+
+
+# ======
+# Resets
+# ======
+
+# Z (x) - Restart yabai
+# default, colemkd < meh - x : ya_restart

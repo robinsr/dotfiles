@@ -1,0 +1,23 @@
+---
+syntax: markdown
+tags: [ terminal, ryan ]
+---
+# iTerm2 Cheatsheet
+
+## Enter Copy Mode
+`cmd-shift-c`
+
+## Exit Copy Mode
+`Esc`, `q`, `Ctrl-C`, `Ctrl-G`
+
+## toggle selection by character (visual mode)
+`v`, `space`
+
+## toggle line selection (visual-line mode)
+`V`
+
+## toggle rectangle selection (visual-block mode)
+`ctrl-v`
+
+## copy selection
+`y`, `ctrl-k`

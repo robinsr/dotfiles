@@ -1,5 +1,7 @@
+#!/usr/bin/env zsh
+
 function notifyMe() {
-  MSG=$1 
+  MSG=$1
   TITLE="with title \"Term message...\""
   SUB=""
 
@@ -7,7 +9,7 @@ function notifyMe() {
     TITLE="with title \"$2\""
   fi
 
-  if [[ -n $3 ]]; then 
+  if [[ -n $3 ]]; then
     SUB="subtitle \"$3\""
   fi
 
