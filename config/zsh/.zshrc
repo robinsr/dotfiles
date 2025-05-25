@@ -37,22 +37,24 @@ zstyle ':omz:update' frequency 365
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # plugins=(macos iterm2 brew git zoxide colored-man-pages zsh-autosuggestions)
+# NOTE: zsh-completions is lodaded, just not listec here
 plugins=(iterm2 colored-man-pages zoxide virtualenv)
 
 
 
+# =========================
+# ========= Pre-init iTerm2
+# =========================
 
-# ==================
-# iTerm2 Integration
-# ==================
 if [[ "$OSTYPE" == darwin* ]] && [[ -n "$ITERM_SESSION_ID" ]] ; then
     zstyle :omz:plugins:iterm2 shell-integration yes
     source $HOME/.config/scripts/iterm.sh
 fi
 
-# ======
-# PRE-OHMYZSH-INIT STUFF
-# ======
+
+# =========================
+# ========== Pre-init `path`
+# =========================
 
 # typeset -U path PATH
 path+=(~/Library/Application\ Support/JetBrains/Toolbox/scripts)
@@ -64,9 +66,29 @@ path+=(~/go/bin)
 # Required to cache formula and cask descriptions.
 export HOMEBREW_EVAL_ALL="true"
 
-# ================
-# Source oh-my-zsh
-# ================
+
+
+# =========================
+# ========= Pre-init `fpath`
+# =========================
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+
+# zsh-completions plugin is "loaded" here (as opposed to the standard `plugins`)
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+
+# Add any custom completions before this line:
+autoload -U compinit && compinit
+
+
+
+
+
+# =========================
+# ======== Source oh-my-zsh
+# =========================
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,6 +105,11 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 # ==================
 
+
+if [[ $+commands[pwgen] && -n "$HOME/dotfiles/script/password.sh" ]]; then
+    source "$HOME/dotfiles/script/password.sh"
+fi
+
 # Lists environment variables, sorted
 alias vars='env | sort'
 alias lsfpath='echo $FPATH | sed "s/:/\n/g"'
@@ -93,39 +120,52 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && ll; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { e "$(find . -type f -not -path '*/.*' | fzf)" }
 
-# =========================================
-# Cheat - helpful shell command cheatsheets
-# =========================================
-export CHEAT_CONFIG_PATH="~/dotfiles/config/cheat/conf.yml"
 
 # ====================
-# UM - custom manpages
+# Cheat - shell cheatsheets
 # ====================
+
+export CHEAT_CONFIG_PATH="~/dotfiles/config/cheat/conf.yml"
+
+
+
+# ====================
+# UM - custom manpages (more custom cheatsheets)
+# ====================
+
 export UMCONFIG_HOME="$XDG_CONFIG_HOME/um"
 
 
-# ==================================
-# BAT - cat with syntax highlighting
-# ==================================
+
+# ====================
+# BAT - `cat` with color`
+# ====================
+
 export BAT_THEME="Dracula"
 export JQ_COLORS="0;90:1;31:1;35:1;33:0;32:1;39:1;39:1;34"
 
 alias ogcat=/bin/cat
 alias cat=/opt/homebrew/bin/bat
 
-# =============
+
+
+# ====================
 # NeoVim/editor
-# =============
+# ====================
+
 alias oldvim=$(which vim)
 alias vim="nvim"
 alias v="nvim"
 alias vimconfig='e ~/.config/nvim/init.lua'
 
 
-# ===============
+
+# ====================
 # LSD (LS-Deluxe)
-# ===============
+# ====================
+
 lsd_common="--date relative"
+
 alias elsd="lsd $lsd_common"
 # - LSD LIST:  "-l" = long format; "-A" = "almost-all" (hides "." and "..")
 alias ll="elsd -lA"
@@ -143,39 +183,32 @@ alias ltr='elsd -lAtr'
 alias lex='elsd -lAX'
 
 
-# =========
-# GITIGNORE
-# =========
 
-# See: https://docs.gitignore.io/install/command-line
-function gi() {
-	curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;
-}
-function gitpick() {
-    git checkout $1 -- $2
-}
-
-# =============================
+# ==================
 # VIVID (and colors in general)
-# =============================
+# ==================
+
 export VIVID_THEME='molokai'
 export LS_COLORS="$(vivid generate $VIVID_THEME)"
+
 alias __ls=/bin/ls
 alias ls='gls --color'
 
 
-# =======
+
+# ==================
 # BORDERS
-# =======
+# ==================
+
 # Move this to .zprofile/.login to be defined in .bordersrc
 # Would be cool to get this from vivid direct
 export JANK_BORDER_ACTIVE='00ff87'
 
 
 
-# ============
-# Fuzzy-Finder
-# ============
+# ==================
+# FZF - Fuzzy Finder
+# ==================
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # - Fuzzy-Find to editor
@@ -184,48 +217,61 @@ function fzv {
 }
 
 
-# ========================
+# ==================
 # YAZI - TUI File Explorer
-# ========================
+# ==================
+
 # alias ya=yazi
 
 
-# ====================
+
+# ==================
 # YABAI - WINDOW TILES
-# ====================
+# ==================
+
 alias ya='yabai -m'
 alias yaq='yabai -m query'
 
 
-# ========================
+
+# ==================
 # LPORG - manage launchpad
-# ========================
+# ==================
+
 # https://github.com/blacktop/lporg
 alias lporg="lporg -c $XDG_CONFIG_HOME/lporg/config.yml"
+
 
 
 # ==================
 # ZELLIG - like tmux
 # ==================
+
 export ZELLIJ_CONFIG_DIR="$HOME/.config/zellij"
 
 
-# ====
+
+# ==================
 # PNPM
-# ====
+# ==================
+
 export PNPM_HOME="/Users/ryan/.config/.local/share/pnpm"
+
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) path+=($PNPM_HOME) ;;
 esac
+
 alias pn=pnpm
-alias pnx='pnpm dlx'
+alias pnx='pnpm exec'
 
 
 
-# =============
+# ==================
 # ALIASES/FUNCS
-# =============
+# ==================
+
+
 # source $HOME/.config/scripts/notify.sh
 
 function server {
@@ -251,47 +297,44 @@ function split-on() {
   # sed $pattern
 }
 
+
+# ==================
+# GITIGNORE
+# ==================
+
+# See: https://docs.gitignore.io/install/command-line
+function gi() {
+    curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;
+}
+
+function gitpick() {
+    git checkout $1 -- $2
+}
+
+
+# ==================
+# MISE - Environment Manager
+# ==================
+
 # eval "$(mise activate zsh)"
+
+
+# ==================
+# ENVMAN - Environment Manager
+# ==================
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-#         . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
+# ==================
+# PYENV - Python Environment Manager
+# ==================
 
-# ======================
-# Lua path (breaks Lua atm)
-# ======================
+export PYENV_ROOT="$HOME/.pyenv"
 
-# xlua_path=()
-# xlua_path+=('/opt/homebrew/share/luajit-2.1/?.lua')
-# xlua_path+=('/opt/homebrew/share/lua/5.4/?.lua')
-# xlua_path+=('/opt/homebrew/share/lua/5.4/?/init.lua')
-# xlua_path+=('/opt/homebrew/lib/lua/5.4/?.lua')
-# xlua_path+=('/opt/homebrew/lib/lua/5.4/?/init.lua')
-# xlua_path+=('./?.lua')
-# xlua_path+=('./?/init.lua')
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
-# export XLUA_PATH=${(j:;:)xlua_path}
+eval "$(pyenv init - zsh)"
 
 
-
-# Troubleshooting - https://github.com/ajeetdsouza/zoxide/issues/336
-# autoload -Uz compinit
-# compinit -i
-# eval "$(zoxide init zsh)"
-
-# zprof
