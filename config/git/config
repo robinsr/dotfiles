@@ -3,7 +3,7 @@
     email = ryan.b.robinson@gmail.com
 
 [core]
-    editor = nvim 
+    editor = subl -n -w
     pager = delta
 
 [init]
@@ -29,6 +29,7 @@
 
 [delta]
     navigate = true
+    line-numbers = true
 
 [merge]
     conflictstyle = diff3
